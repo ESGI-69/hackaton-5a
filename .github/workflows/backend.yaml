@@ -1,0 +1,52 @@
+name: Backend tests
+run-name: ${{ github.actor }} launching backend tests
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend.yml'
+
+defaults:
+  run:
+    working-directory: backend
+    
+jobs:
+  eslint:
+    name: Eslint (backend)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install eslint
+        run: npm install eslint
+      - name: Launch eslint
+        run: npm run lint
+
+  build:
+    needs: 
+      - eslint
+    runs-on: ubuntu-latest
+    name: Build (backend)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+
+  docker_build:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    name: Build image (backend)
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build .

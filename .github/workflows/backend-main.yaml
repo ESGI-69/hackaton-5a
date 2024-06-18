@@ -1,0 +1,22 @@
+name: Backend tests
+run-name: ${{ github.actor }} launching backend tests
+
+on:
+  push: 
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend.yaml'
+
+defaults:
+  run:
+    working-directory: backend
+    
+jobs:
+  docker_build:
+    runs-on: ubuntu-latest
+    name: Build image (backend)
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build .
