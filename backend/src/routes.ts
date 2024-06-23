@@ -8,5 +8,6 @@ const router = Router();
 router.use('/users', userRouter);
 router.use('/chatbot', chatbotRouter);
 router.use('/auth', authRouter);
+router.get('/healthz', (req, res) => res.sendStatus(200));
 
 export default router;

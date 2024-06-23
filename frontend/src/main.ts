@@ -1,8 +1,10 @@
+import App from '@/App.vue';
+import '@/assets/main.scss';
+import router from '@/router';
 import { createPinia } from 'pinia';
+import 'vfonts/FiraCode.css';
+import 'vfonts/Lato.css';
 import { createApp } from 'vue';
-import App from './App.vue';
-import './assets/main.css';
-import router from './router';
 
 const app = createApp(App);
 
