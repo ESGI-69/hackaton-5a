@@ -1,0 +1,12 @@
+{
+  "configurations": [
+  {
+    "name": "Launch backend",
+    "program": "${workspaceFolder}/src/index.ts",
+    "preLaunchTask": "build",
+    "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+    "request": "launch",
+    "type": "node"
+  }
+  ]
+}
