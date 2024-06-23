@@ -22,7 +22,7 @@ jobs:
       - name: Install eslint
         run: npm install eslint
       - name: Launch eslint
-        run: npm run lint
+        run: npm run lint:check
 
   format:
     name: Format (frontend)
@@ -35,11 +35,12 @@ jobs:
       - name: Install prettier
         run: npm install prettier
       - name: Launch prettier
-        run: npm run format
+        run: npm run format:check
     
   build:
     needs: 
       - lint
+      - format
     runs-on: ubuntu-latest
     name: Build (frontend)
     steps:
