@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import userRouter from './routes/user';
-import chatbotRouter from './routes/chatbot';
 import authRouter from './routes/auth';
+import chatbotRouter from './routes/chatbot';
+import userRouter from './routes/user';
 
 const router = Router();
 

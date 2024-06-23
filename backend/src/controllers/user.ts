@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import userService from '../service/user';
 import checkMandatoryFields from '../utils/checkMandatoryFields';
-import checkParams from '../utils/checkParams';
 
 export default {
   post: async (req: Request, res: Response, next: NextFunction) => {
@@ -24,7 +23,9 @@ export default {
           message: 'Invalid credentials',
         });
       }
-      if (!await userService.checkPassword(req.body.password, user.password)) {
+      if (
+        !(await userService.checkPassword(req.body.password, user.password))
+      ) {
         return res.status(401).send({
           code: 'invalid_credentials',
           message: 'Invalid credentials',

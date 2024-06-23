@@ -3,7 +3,8 @@ import OpenAI, { ClientOptions } from 'openai';
 class OpenAIQueryBuilder {
   private static instance: OpenAIQueryBuilder;
   private client: OpenAI;
-  private chatbotSystemMessage = 'Tu est un chatbot d\'un hackathon, répond à mes questions.';
+  private chatbotSystemMessage =
+    "Tu est un chatbot d'un hackathon,répond à mes questions.";
   private model = 'gpt-3.5-turbo';
 
   private constructor() {
@@ -19,7 +20,9 @@ class OpenAIQueryBuilder {
     return OpenAIQueryBuilder.instance;
   }
 
-  public async chatbot(prompts: Array<OpenAI.Chat.Completions.ChatCompletionMessageParam>): Promise<OpenAI.Chat.Completions.ChatCompletion> {
+  public async chatbot(
+    prompts: Array<OpenAI.Chat.Completions.ChatCompletionMessageParam>,
+  ): Promise<OpenAI.Chat.Completions.ChatCompletion> {
     const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       {
         role: 'system',
@@ -34,7 +37,6 @@ class OpenAIQueryBuilder {
     });
     return response;
   }
-
 }
 
 export default OpenAIQueryBuilder;

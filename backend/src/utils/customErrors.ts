@@ -16,6 +16,4 @@ class ValidationError extends Error {
   }
 }
 
-export {
-  ValidationError,
-};
+export { ValidationError };

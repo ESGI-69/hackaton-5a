@@ -1,5 +1,5 @@
-import { ErrorRequestHandler } from 'express';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
+import { ErrorRequestHandler } from 'express';
 import { ValidationError } from './utils/customErrors';
 
 interface Payload {

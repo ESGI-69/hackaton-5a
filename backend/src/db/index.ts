@@ -9,6 +9,4 @@ const prisma = new PrismaClient({
 
 // Hide password middleware
 
-export {
-  prisma,
-};
+export { prisma };
