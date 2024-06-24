@@ -17,4 +17,96 @@ model User {
   name                String?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
+  appointments        Appointment[]
+  responsibleAlerts   Alert[]
+  actions             Action[]
+}
+
+model Patient {
+  id Int @id @default(autoincrement())
+  alerts Alert[]
+  conversations Conversation[]
+  appointments Appointment[]
+  phone String
+  birthDate DateTime
+  gender String
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+}
+
+model Alert {
+  id Int @id @default(autoincrement())
+  handledAt DateTime?
+  patientId Int
+  patient Patient @relation(fields: [patientId], references: [id])
+  score Int
+  reasons String[]
+  summary String
+  responsibleId Int?
+  responsible User? @relation(fields: [responsibleId], references: [id])
+  actions Action[]
+  // conversationId Int
+  // conversation Conversation
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+}
+
+enum MessageOrigin {
+  SYSTEM
+  DOCTOR
+  PATIENT
+}
+
+model Messages {
+  id Int @id @default(autoincrement())
+  text String
+  conversationId Int
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+  origin MessageOrigin
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+}
+
+model Conversation {
+  id Int @id @default(autoincrement())
+  closedAt DateTime?
+  messages Messages[]
+  patientId Int
+  patient Patient @relation(fields: [patientId], references: [id])
+  alertId Int
+  // alert Alert? @relation(fields: [alertId], references: [id])
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+}
+
+model Appointment {
+  id Int @id @default(autoincrement())
+  title String
+  reason String
+  patientId Int
+  patient Patient @relation(fields: [patientId], references: [id])
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  date DateTime
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+}
+
+enum ActionType {
+  CALL
+  MESSAGE
+  APPOINTMENT
+  CLOSED
+}
+
+model Action {
+  id Int @id @default(autoincrement())
+  type ActionType
+  alertId Int
+  alert Alert @relation(fields: [alertId], references: [id])
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  comment String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
 }
