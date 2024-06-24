@@ -10,3 +10,16 @@
 <script lang="ts" setup>
 import AppNavbar from './components/AppNavbar.vue';
 </script>
+
+<style lang="scss">
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+* {
+  box-sizing: border-box;
+}
+</style>
