@@ -16,6 +16,7 @@ export const useHealthzStore = defineStore('healthzStore', {
         const { data } = await api.get('/healthz');
         console.log(data);
         this.isApiHealthy = true;
+        this.healthError = {};
       } catch (error) {
         this.isApiHealthy = false;
         if (error instanceof AxiosError) {

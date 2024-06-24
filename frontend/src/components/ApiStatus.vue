@@ -24,7 +24,7 @@ defineProps<{
   >
     {{ isApiAvaliable ? 'API is available' : 'API is not available' }}
     <NCode
-      v-if="error"
+      v-if="error && !isApiAvaliable"
       class="api-status__info"
       :code="JSON.stringify(error, null, 2)"
       language="json"
