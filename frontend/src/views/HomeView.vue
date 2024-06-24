@@ -15,7 +15,9 @@ const checkApiStatus = async () => {
 </script>
 
 <template>
-  <main>
+  <main
+    class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4"
+  >
     <NButton @click="checkApiStatus">Test API</NButton>
     <ApiStatus
       v-if="apiHasBeenCalled"
