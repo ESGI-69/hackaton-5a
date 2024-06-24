@@ -9,8 +9,8 @@ const healthzStore = useHealthzStore();
 const apiHasBeenCalled = ref(false);
 
 const checkApiStatus = async () => {
-  await healthzStore.getHealthz();
   apiHasBeenCalled.value = true;
+  await healthzStore.getHealthz();
 };
 </script>
 
@@ -19,7 +19,9 @@ const checkApiStatus = async () => {
     <NButton @click="checkApiStatus">Test API</NButton>
     <ApiStatus
       v-if="apiHasBeenCalled"
+      :is-loading="healthzStore.isHealthzLoading"
       :is-api-avaliable="healthzStore.isApiHealthy"
+      :error="healthzStore.healthError"
     />
   </main>
 </template>
