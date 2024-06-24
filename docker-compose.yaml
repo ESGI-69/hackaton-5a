@@ -21,7 +21,7 @@ services:
     ports:
       - 8080:8080
     environment:
-      VITE_API: http://localhost:3000
+      VITE_API: http://backend:3000/
       VITE_TIMEOUT: 80000
       VITE_COOKIE_TOKEN_NAME: hackathon-5a-token
     depends_on:
