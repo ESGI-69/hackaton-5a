@@ -1,7 +1,8 @@
 @tailwind base;
 
-html, body {
-    font-size: 14px;
+html,
+body {
+  font-size: 14px;
 }
 
 @tailwind components;
