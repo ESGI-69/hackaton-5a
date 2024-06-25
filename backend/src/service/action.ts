@@ -26,4 +26,27 @@ export default {
     });
     return action;
   },
+
+  getAll: async function () {
+    const actions = await prisma.action.findMany();
+    return actions;
+  },
+
+  getById: async function (id: number) {
+    const action = await prisma.action.findUnique({
+      where: { id },
+    });
+    return action;
+  },
+
+  update: async function (id: number, data: CreateActionInput, userId: number) {
+    const action = await prisma.action.update({
+      where: { id },
+      data: {
+        ...data,
+        userId,
+      },
+    });
+    return action;
+  },
 };

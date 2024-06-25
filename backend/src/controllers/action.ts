@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import actionService from '../service/action';
 import checkMandatoryFields from '../utils/checkMandatoryFields';
 
 export default {
@@ -6,8 +7,7 @@ export default {
     try {
       if (!req.user)
         throw new Error('You must be logged in to create a recipe');
-      checkMandatoryFields(['type', 'patientId'], req.body);
-
+      checkMandatoryFields(['type', 'comment', 'alertId'], req.body);
       const action = await actionService.create(req.body, req.user.id);
       res.status(201).json(action);
     } catch (error) {

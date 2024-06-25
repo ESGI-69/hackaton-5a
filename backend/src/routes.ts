@@ -15,7 +15,7 @@ router.use('/chatbot', chatbotRouter);
 router.use('/auth', authRouter);
 router.use('/patients', patientRouter);
 router.use('/alerts', isLogged, alertRouter);
-router.use('/actions', actionRouter);
+router.use('/actions', isLogged, actionRouter);
 router.get('/healthz', healthz);
 
 export default router;
