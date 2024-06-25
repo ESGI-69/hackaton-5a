@@ -1,7 +1,7 @@
 <template>
   <div
     :class="bgColorClass"
-    class="flex items-center space-x-2 w-fit px-2 py-1 rounded-full mx-auto"
+    class="flex items-center space-x-2 w-fit px-2 py-1 rounded-full"
   >
     <div
       :class="circleColorClass"
@@ -12,8 +12,9 @@
     <span
       :class="textColorClass"
       class="text-sm font-bold"
-      >{{ score }}</span
     >
+      {{ score }}
+    </span>
   </div>
 </template>
 

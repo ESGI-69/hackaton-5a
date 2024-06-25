@@ -13,8 +13,7 @@ export const useHealthzStore = defineStore('healthzStore', {
     async getHealthz() {
       this.isHealthzLoading = true;
       try {
-        const { data } = await api.get('/healthz');
-        console.log(data);
+        await api.get('/healthz');
         this.isApiHealthy = true;
         this.healthError = {};
       } catch (error) {

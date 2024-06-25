@@ -9,18 +9,53 @@
       </div>
     </div>
     <div class="table-container -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-      <DashboardTable />
+      <SharedDatatable
+        :columns="[
+          {
+            prop: 'patient',
+            label: 'Patient',
+            width: '100px',
+          },
+          {
+            prop: 'createdAt',
+            label: 'Ouverture de l\'alerte',
+            width: '200px',
+          },
+          {
+            prop: 'summary',
+            label: 'Raisons de l\'alerte',
+          },
+          {
+            prop: 'score',
+            label: 'Score de l\'alerte',
+            width: '175px',
+          },
+        ]"
+        :data="alertStore.alerts"
+        :areRowsClickable="true"
+        @row-click="(row) => console.log('row', row.id)"
+      >
+        <template #patient="{ row }">
+          {{ row.patient.name }}
+        </template>
+        <template #createdAt="{ row }">
+          {{ new Date(row.createdAt).toLocaleDateString() }}
+        </template>
+        <template #score="{ row }">
+          <ScoreTag :score="row.score * 100" />
+        </template>
+      </SharedDatatable>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import DashboardTable from '@/components/Dashboard/DashboardTable.vue';
+import ScoreTag from '@/components/ScoreTag.vue';
+import SharedDatatable from '@/components/Shared/SharedDatatable.vue';
 import { useAlertStore } from '@/stores/alertStore';
 
 const alertStore = useAlertStore();
 alertStore.getAlerts();
-console.log('alertStore', alertStore);
 </script>
 
 <style scoped>
