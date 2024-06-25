@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-const authStore = useAuthStore();
+const userStore = useUserStore();
 const router = useRouter();
 
 const username = ref('');
 const password = ref('');
 
-const login = async () => {
-  await authStore.login({
+const register = async () => {
+  await userStore.login({
     username: username.value,
     password: password.value,
   });
@@ -20,7 +20,7 @@ const login = async () => {
 
 <template>
   <form
-    @submit.prevent="login"
+    @submit.prevent="register"
     class="flex flex-col space-y-4"
   >
     <label for="username">Username</label>
@@ -37,7 +37,7 @@ const login = async () => {
       id="password"
       v-model="password"
     />
-    <button type="submit">Login</button>
+    <button type="submit">Register</button>
   </form>
-  <button @click="router.push('/register')">Register</button>
+  <button @click="router.push('/login')">Login</button>
 </template>
