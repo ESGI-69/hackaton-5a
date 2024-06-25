@@ -7,6 +7,9 @@ export default {
       const alerts = await alertService.getAll();
       res.status(200).json({
         count: alerts.length,
+        criticalCount: alerts.filter((a) => a.score >= 5).length,
+        mediumCount: alerts.filter((a) => a.score >= 3 && a.score < 5).length,
+        lowCount: alerts.filter((a) => a.score < 3).length,
         results: alerts,
       });
     } catch (error) {
