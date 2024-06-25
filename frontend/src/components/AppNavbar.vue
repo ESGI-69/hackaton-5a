@@ -36,10 +36,10 @@ const toggleMenu = () => {
 };
 
 const menuItems = [
-  { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Alertes', href: '/alerts' },
-  { name: 'Rendez-vous', href: '/appointments' },
-  { name: 'Professionnels', href: '/professionnals' },
-  { name: 'Patients', href: '/patients' },
+  { name: 'Dashboard', routeName: 'dashboard' },
+  { name: 'Alertes', routeName: 'alerts' },
+  { name: 'Rendez-vous', routeName: 'appointments' },
+  { name: 'Professionnels', routeName: 'professionnals' },
+  { name: 'Patients', routeName: 'patients' },
 ];
 </script>

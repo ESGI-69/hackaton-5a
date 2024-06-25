@@ -1,21 +1,22 @@
 <template>
   <div :class="containerClass">
-    <a
+    <RouterLink
       v-for="item in items"
       :key="item.name"
-      :href="item.href"
-      class="text-grey-500 hover:text-orange-500 transition duration-300 ease-in-out"
+      :to="item.routeName"
+      class="text-primary-500 hover:text-contrast-500 transition duration-300 ease-in-out"
     >
       {{ item.name }}
-    </a>
+    </RouterLink>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import { RouterLink } from 'vue-router';
 
 const props = defineProps<{
-  items: { name: string; href: string }[];
+  items: { name: string; routeName: string }[];
   inline?: boolean;
 }>();
 

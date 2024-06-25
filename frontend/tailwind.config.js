@@ -9,14 +9,14 @@ export default {
           200: '#E2E0FF',
           300: '#D5D1FF',
           400: '#D1CDFF',
-          500: '#C0BBF8',
+          500: '#b6b0ef',
         },
         contrast: {
           100: '#E2E0EE',
           200: '#E2E0FF',
           300: '#D5D1FF',
           400: '#D1CDFF',
-          500: '#C0BBF8',
+          500: '#a09ae1',
         },
         secondary: {
           100: '#FAFCD2',
