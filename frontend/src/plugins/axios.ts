@@ -12,7 +12,10 @@ instance.defaults.headers.post['Content-Type'] = 'application/json';
 
 instance.interceptors.request.use(
   (config) => {
-    // Do something before request is sent
+    const token = Cookies.get(import.meta.env.VITE_COOKIE_NAME);
+    if (token) {
+      config.headers.common['Authorization'] = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {

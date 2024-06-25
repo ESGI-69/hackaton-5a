@@ -3,7 +3,7 @@
     <div class="pulsating-circle-container">
       <div class="pulsating-circle">
         <div class="circle-text">
-          <div class="text-4xl font-bold">7</div>
+          <div class="text-4xl font-bold">{{ alertStore.alertsCount }}</div>
           <div class="font-bold">alertes</div>
         </div>
       </div>
@@ -16,6 +16,11 @@
 
 <script setup lang="ts">
 import DashboardTable from '@/components/Dashboard/DashboardTable.vue';
+import { useAlertStore } from '@/stores/alertStore';
+
+const alertStore = useAlertStore();
+alertStore.getAlerts();
+console.log('alertStore', alertStore);
 </script>
 
 <style scoped>
