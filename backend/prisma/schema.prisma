@@ -46,8 +46,8 @@ model Alert {
   responsibleId Int?
   responsible User? @relation(fields: [responsibleId], references: [id])
   actions Action[]
-  // conversationId Int
-  // conversation Conversation
+  conversationId Int @unique
+  conversation Conversation @relation(fields: [conversationId], references: [id])
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
 }
@@ -74,8 +74,7 @@ model Conversation {
   messages Messages[]
   patientId Int
   patient Patient @relation(fields: [patientId], references: [id])
-  alertId Int
-  // alert Alert? @relation(fields: [alertId], references: [id])
+  alert Alert?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
 }
