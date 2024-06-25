@@ -4,35 +4,51 @@ export default {
   theme: {
     extend: {
       colors: {
-        'grey': {
-          '100': '#FAFAFA',
-          '200': '#EAEAEA',
-          '300': '#E0E0E0',
-          '400': '#BDBDBD',
-          '500': '#9E9E9E',
+        primary: {
+          100: '#F3F2FF',
+          200: '#E2E0FF',
+          300: '#D5D1FF',
+          400: '#D1CDFF',
+          500: '#C0BBF8',
         },
-        'orange': {
-          '50': '#FBE1D6',
-          '500': '#FB4F14',
-          '600': '#ee480d',
+        contrast: {
+          100: '#E2E0EE',
+          200: '#E2E0FF',
+          300: '#D5D1FF',
+          400: '#D1CDFF',
+          500: '#C0BBF8',
         },
-        'raspberry': {
-          '50': '#F3DEE5',
-          '500': '#AA2351',
+        secondary: {
+          100: '#FAFCD2',
+          200: '#F0F78D',
+          300: '#E9F456',
+          400: '#D9E72D',
+          500: '#B9C611',
         },
-        'lemon': {
-          '50': '#F4EEC7',
-          '500': '#C0AD38',
+        grey: {
+          100: '#F4F4F4',
+          300: '#616161',
+          500: '#25262F',
+        },
+        orange: {
+          50: '#FBE1D6',
+          500: '#FB4F14',
+          600: '#ee480d',
+        },
+        raspberry: {
+          50: '#F3DEE5',
+          500: '#AA2351',
+        },
+        lemon: {
+          50: '#F4EEC7',
+          500: '#C0AD38',
         },
       },
       boxShadow: {
-        'light': '0 3px 5px 0 rgba(0, 0, 0, 0.06)',
+        light: '0 3px 5px 0 rgba(0, 0, 0, 0.06)',
       },
     },
   },
   plugins: [],
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-}
-
-
-
+};

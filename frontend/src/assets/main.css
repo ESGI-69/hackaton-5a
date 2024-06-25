@@ -1,7 +1,15 @@
 @tailwind base;
 
+* {
+  box-sizing: border-box;
+}
+
 html,
-body {
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
   font-size: 14px;
 }
 
