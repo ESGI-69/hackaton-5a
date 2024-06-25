@@ -11,6 +11,8 @@ import userRouter from './routes/user';
 
 const router = Router();
 
+console.log('router', router);
+
 router.use('/users', userRouter);
 router.use('/chatbot', chatbotRouter);
 router.use('/auth', authRouter);
