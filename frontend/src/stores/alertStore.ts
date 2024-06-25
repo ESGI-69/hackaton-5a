@@ -14,8 +14,6 @@ export const useAlertStore = defineStore('alertStore', {
         const { data } = await api.get('/alerts/');
         this.alertsCount = data.count;
         this.alerts = data.results;
-      } catch (error) {
-        throw error;
       } finally {
         this.areAlertsLoading = false;
       }
