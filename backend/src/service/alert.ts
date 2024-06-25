@@ -31,7 +31,12 @@ export default {
   },
 
   getAll: async function () {
-    const alerts = await prisma.alert.findMany();
+    const alerts = await prisma.alert.findMany({
+      include: {
+        patient: true,
+        responsible: true,
+      },
+    });
     return alerts;
   },
 
