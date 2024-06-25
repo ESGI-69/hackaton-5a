@@ -9,6 +9,27 @@
       </div>
     </div>
     <div class="table-container -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+      <SharedDatatable
+        :columns="[
+          {
+            prop: 'id',
+            label: 'ID',
+          },
+          {
+            prop: 'updatedAt',
+            label: 'Last Activity',
+          },
+          {
+            prop: 'score',
+            label: 'Score',
+          },
+        ]"
+        :data="alertStore.alerts"
+      >
+        <template #updatedAt="{ row }">
+          {{ new Date(row.updatedAt).toLocaleString() }}
+        </template>
+      </SharedDatatable>
       <DashboardTable />
     </div>
   </div>
@@ -16,6 +37,7 @@
 
 <script setup lang="ts">
 import DashboardTable from '@/components/Dashboard/DashboardTable.vue';
+import SharedDatatable from '@/components/Shared/SharedDatatable.vue';
 import { useAlertStore } from '@/stores/alertStore';
 
 const alertStore = useAlertStore();
