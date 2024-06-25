@@ -27,10 +27,10 @@
       </p>
     </td>
     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-      <ScoreTag :score="score"></ScoreTag>
+      <ScoreTag :score="score" />
     </td>
     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
-      <CustomButton text="Voir"></CustomButton>
+      <CustomButton text="Voir" />
     </td>
   </tr>
 </template>
