@@ -1,7 +1,7 @@
 <template>
   <div
     :class="bgColorClass"
-    class="flex items-center space-x-2 w-fit px-2 py-1 rounded-full"
+    class="flex items-center space-x-2 w-fit px-2 py-1 rounded-full mx-auto"
   >
     <div
       :class="circleColorClass"
