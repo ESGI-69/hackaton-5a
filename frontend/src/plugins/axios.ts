@@ -14,7 +14,7 @@ instance.interceptors.request.use(
   (config) => {
     const token = Cookies.get(import.meta.env.VITE_COOKIE_NAME);
     if (token) {
-      config.headers.common['Authorization'] = `Bearer ${token}`;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
@@ -34,6 +34,7 @@ instance.interceptors.response.use(
       Cookies.remove(import.meta.env.VITE_COOKIE_NAME);
       router.replace('/login');
     }
+    return Promise.reject(error);
   },
 );
 
