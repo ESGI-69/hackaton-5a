@@ -23,6 +23,7 @@ const populateUser = async (
   res: Response,
   next: NextFunction,
 ) => {
+  console.log(process.env);
   if (!process.env.JWT_SECRET) return next(new Error('JWT_SECRET not set'));
   if (
     req.headers.authorization &&
