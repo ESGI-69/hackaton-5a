@@ -15,6 +15,7 @@ export default {
   create: async function (
     { score, reasons, summary, patientId }: CreateAlterInput,
     responsibleId: number,
+    conversationId: number,
   ) {
     const alert = await prisma.alert.create({
       data: {
@@ -23,6 +24,7 @@ export default {
         summary,
         patientId,
         responsibleId,
+        conversationId,
       },
     });
     return alert;
