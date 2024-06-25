@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import healthz from './controllers/healthz';
+import { isLogged } from './middlewares';
 import alertRouter from './routes/alert';
 import authRouter from './routes/auth';
 import chatbotRouter from './routes/chatbot';
@@ -12,7 +13,7 @@ router.use('/users', userRouter);
 router.use('/chatbot', chatbotRouter);
 router.use('/auth', authRouter);
 router.use('/patients', patientRouter);
-router.use('/alerts', alertRouter);
+router.use('/alerts', isLogged, alertRouter);
 router.get('/healthz', healthz);
 
 export default router;
