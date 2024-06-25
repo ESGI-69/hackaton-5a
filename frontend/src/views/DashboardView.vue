@@ -12,37 +12,50 @@
       <SharedDatatable
         :columns="[
           {
-            prop: 'id',
-            label: 'ID',
+            prop: 'patient',
+            label: 'Patient',
+            width: '100px',
           },
           {
-            prop: 'updatedAt',
-            label: 'Last Activity',
+            prop: 'createdAt',
+            label: 'Ouverture de l\'alerte',
+            width: '200px',
+          },
+          {
+            prop: 'summary',
+            label: 'Raisons de l\'alerte',
           },
           {
             prop: 'score',
-            label: 'Score',
+            label: 'Score de l\'alerte',
+            width: '175px',
           },
         ]"
         :data="alertStore.alerts"
+        :areRowsClickable="true"
+        @row-click="(row) => console.log('row', row.id)"
       >
-        <template #updatedAt="{ row }">
-          {{ new Date(row.updatedAt).toLocaleString() }}
+        <template #patient="{ row }">
+          {{ row.patient.name }}
+        </template>
+        <template #createdAt="{ row }">
+          {{ new Date(row.createdAt).toLocaleDateString() }}
+        </template>
+        <template #score="{ row }">
+          <ScoreTag :score="row.score * 100" />
         </template>
       </SharedDatatable>
-      <DashboardTable />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import DashboardTable from '@/components/Dashboard/DashboardTable.vue';
+import ScoreTag from '@/components/ScoreTag.vue';
 import SharedDatatable from '@/components/Shared/SharedDatatable.vue';
 import { useAlertStore } from '@/stores/alertStore';
 
 const alertStore = useAlertStore();
 alertStore.getAlerts();
-console.log('alertStore', alertStore);
 </script>
 
 <style scoped>
