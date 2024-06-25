@@ -35,5 +35,6 @@ services:
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER:-root}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-app}
       JWT_SECRET: ${JWT_SECRET:-secret}
+      OLLAMA_API: ${OLLAMA_API:-http://localhost:11434}
     depends_on:
       - postgres
