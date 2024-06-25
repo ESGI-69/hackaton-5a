@@ -3,7 +3,7 @@
     <RouterLink
       v-for="item in items"
       :key="item.name"
-      :to="item.routeName"
+      :to="{ name: item.routeName }"
       class="text-primary-500 hover:text-contrast-500 transition duration-300 ease-in-out"
     >
       {{ item.name }}

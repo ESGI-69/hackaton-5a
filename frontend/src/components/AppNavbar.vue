@@ -1,7 +1,7 @@
 <template>
   <nav class="bg-white p-4 shadow-light z-10">
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="text-gray-500 text-xl">Logo</div>
+    <div class="mx-auto px-4 sm:px-8 flex justify-between items-center">
+      <div class="text-gray-500 text-xl">MediFlow</div>
       <div class="hidden md:flex">
         <NavbarItem
           :items="menuItems"
