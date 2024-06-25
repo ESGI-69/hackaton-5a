@@ -19,7 +19,7 @@
       v-if="isMenuOpen"
       class="md:hidden mt-2"
     >
-      <NavbarItem :items="menuItems"  />
+      <NavbarItem :items="menuItems" />
     </div>
   </nav>
 </template>
