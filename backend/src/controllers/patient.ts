@@ -32,4 +32,15 @@ export default {
       next(error);
     }
   },
+
+  postMessage: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      checkMandatoryFields(['message'], req.body);
+      const id = parseInt(req.params.id, 10);
+      const message = await patientService.postMessage(id, req.body.message);
+      res.status(201).json(message);
+    } catch (error) {
+      next(error);
+    }
+  },
 };

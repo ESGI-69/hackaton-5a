@@ -41,4 +41,31 @@ export default {
     });
     return patient;
   },
+
+  postMessage: async function (id: number, message: string) {
+    let conversation = await prisma.conversation.findFirst({
+      where: {
+        patientId: id,
+        closedAt: {
+          equals: null,
+        },
+      },
+    });
+    if (!conversation) {
+      conversation = await prisma.conversation.create({
+        data: {
+          patientId: id,
+        },
+      });
+    }
+
+    const newMessage = await prisma.messages.create({
+      data: {
+        text: message,
+        conversationId: conversation.id,
+        origin: 'PATIENT',
+      },
+    });
+    return newMessage;
+  },
 };
