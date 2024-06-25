@@ -1,5 +1,2 @@
-<template>
-  Patients
-</template>
-<script setup lang="ts">
-</script>
+<template>Patients</template>
+<script setup lang="ts"></script>

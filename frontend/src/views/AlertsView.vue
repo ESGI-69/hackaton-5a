@@ -1,3 +1,1 @@
-<template>
-  Alertes
-</template>
+<template>Alertes</template>
