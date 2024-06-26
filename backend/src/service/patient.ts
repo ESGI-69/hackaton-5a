@@ -65,7 +65,26 @@ export default {
         conversationId: conversation.id,
         origin: 'PATIENT',
       },
+      include: {
+        conversation: {
+          include: {
+            messages: true,
+          },
+        },
+      },
     });
     return newMessage;
+  },
+
+  getAllMessageByConversationID: async function (id: number) {
+    const messages = await prisma.messages.findMany({
+      where: {
+        conversationId: id,
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+    return messages;
   },
 };

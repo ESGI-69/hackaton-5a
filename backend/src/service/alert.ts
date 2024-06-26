@@ -14,19 +14,26 @@ export interface JwtPayload {
 export default {
   create: async function (
     { score, reasons, summary, patientId }: CreateAlterInput,
-    responsibleId: number,
     conversationId: number,
+    responsibleId?: number,
   ) {
-    const alert = await prisma.alert.create({
-      data: {
-        score,
-        reasons,
-        summary,
-        patientId,
-        responsibleId,
-        conversationId,
-      },
-    });
+    let alert;
+
+    try {
+      alert = await prisma.alert.create({
+        data: {
+          score,
+          reasons,
+          summary,
+          patientId,
+          responsibleId,
+          conversationId,
+        },
+      });
+    } catch (error) {
+      console.log('Error creating alert:', error);
+    }
+
     return alert;
   },
 
@@ -50,15 +57,33 @@ export default {
   update: async function (
     id: number,
     data: CreateAlterInput,
-    responsibleId: number,
+    responsibleId?: number,
   ) {
-    const alert = await prisma.alert.update({
-      where: { id },
-      data: {
-        ...data,
-        responsibleId,
+    let alert;
+    try {
+      alert = await prisma.alert.update({
+        where: { id },
+        data: {
+          ...data,
+          responsibleId,
+        },
+      });
+    } catch (error) {
+      console.log('Error updating alert:', error);
+    }
+    return alert;
+  },
+
+  checkConversationHasAlert: async function (conversationId: number) {
+    const alert = await prisma.alert.findFirst({
+      where: {
+        conversationId,
+        handledAt: null,
       },
     });
-    return alert;
+    if (alert) {
+      return alert;
+    }
+    return null;
   },
 };
