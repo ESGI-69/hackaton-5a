@@ -15,8 +15,8 @@ export interface JwtPayload {
 export default {
   create: async function (
     { score, reasons, summary, patientId }: CreateAlterInput,
-    responsibleId: number,
     conversationId: number,
+    responsibleId?: number,
   ) {
     const alert = await prisma.alert.create({
       data: {
@@ -28,6 +28,7 @@ export default {
         conversationId,
       },
     });
+
     return alert;
   },
 
@@ -52,7 +53,7 @@ export default {
   update: async function (
     id: number,
     data: CreateAlterInput,
-    responsibleId: number,
+    responsibleId?: number,
   ) {
     const alert = await prisma.alert.update({
       where: { id },
@@ -61,6 +62,20 @@ export default {
         responsibleId,
       },
     });
+
     return alert;
+  },
+
+  checkConversationHasAlert: async function (conversationId: number) {
+    const alert = await prisma.alert.findFirst({
+      where: {
+        conversationId,
+        handledAt: null,
+      },
+    });
+    if (alert) {
+      return alert;
+    }
+    return null;
   },
 };
