@@ -67,7 +67,7 @@ const title = computed(() => {
     case 'CALL':
       return 'Appel passé au patient';
     case 'ASSIGNMENT':
-      return 'Responsable assigné : Dr. Jean DUPONT';
+      return 'Changement de responsable';
     case 'CLOSED':
       return 'Alerte clôturée';
     default:

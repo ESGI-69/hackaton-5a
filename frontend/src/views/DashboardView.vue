@@ -36,7 +36,9 @@
         :data="alertStore.unasignedAlerts"
         areRowsClickable
         :empty-message="'Aucune alertes à traiter'"
-        @row-click="(row) => console.log('row', row.id)"
+        @row-click="
+          (row) => router.push({ name: 'alert', params: { id: row.id } })
+        "
       >
         <template #patient="{ row }">
           {{ row.patient.name }}
@@ -55,8 +57,10 @@
 <script setup lang="ts">
 import ScoreTag from '@/components/ScoreTag.vue';
 import SharedDatatable from '@/components/Shared/SharedDatatable.vue';
+import { useRouter } from 'vue-router';
 import { useAlertStore } from '@/stores/alertStore';
 
+const router = useRouter();
 const alertStore = useAlertStore();
 alertStore.getUnasignedAlerts();
 </script>

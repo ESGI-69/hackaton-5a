@@ -139,7 +139,7 @@ const main = async () => {
               userId: adminUser.id,
             },
             {
-              type: 'APPOINTMENT',
+              type: 'ASSIGNMENT',
               createdAt: new Date('2021-01-01T14:00:00'),
               updatedAt: new Date('2021-01-02'),
               userId: adminUser.id,

@@ -46,6 +46,23 @@ export default {
   getById: async function (id: number) {
     const alert = await prisma.alert.findUnique({
       where: { id },
+      include: {
+        patient: true,
+        responsible: true,
+        conversation: {
+          include: {
+            messages: true,
+          },
+        },
+        actions: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+          include: {
+            user: true,
+          },
+        },
+      },
     });
     return alert;
   },
