@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 sm:px-8 flex h-[90vh]">
+  <div class="p-4 sm:px-8 flex flex-grow">
     <div class="w-9/12 pr-12 flex flex-col">
       <div class="flex">
         <div class="w-3/12">
@@ -30,13 +30,73 @@
           </div>
         </div>
       </div>
-      <div class="pt-12 flex flex-col">
-        <div class="pb-4 mb-4 border-b border-gray-300">Actions prises (3)</div>
-        <div class="overflow-y-auto">
-          <div class="card mb-2">Action 2</div>
-          <div class="card mb-2">Action 3</div>
-          <div class="card mb-2">Action 4</div>
-          <div class="card mb-2">Action 5</div>
+      <div class="pt-12 flex flex-col flex-grow">
+        <div
+          class="pb-4 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold"
+        >
+          Actions prises (3)
+        </div>
+        <div class="h-fit overflow-y-auto">
+          <AlertActionCard
+            date="26 Juin 2024"
+            card-type="closed"
+            time="13h00"
+            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+          />
+          <AlertActionCard
+            date="26 Juin 2024"
+            card-type="call"
+            time="12h00"
+            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+          />
+          <AlertActionCard
+            date="26 Juin 2024"
+            card-type="message"
+            time="11h00"
+            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+          />
+          <AlertActionCard
+            date="26 Juin 2024"
+            card-type="assignment"
+            time="10h00"
+          />
+          <!--          <div class="card mb-2 flex items-center">
+            <div class="bg-secondary-50 rounded-full mr-6">
+              <CheckCircleIcon class="w-8 h-8 m-2 text-secondary-500" />
+            </div>
+            <div>
+              <div>Alerte clôturée</div>
+              <div class="flex">
+                <div class="flex items-center mr-8">
+                  <CalendarDaysIcon class="w-5 h-5 mr-2" />
+                  <p>Mercredi 26 Juin 2024</p>
+                </div>
+                <div class="flex items-center">
+                  <ClockIcon class="w-4 h-4 mr-2" />
+                  <p>10h00</p>
+                </div>
+              </div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            </div>
+          </div>
+          <div class="card mb-2 flex items-center">
+            <div class="bg-secondary-50 rounded-full mr-6">
+              <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
+            </div>
+            <div>
+              <div>Changement de responsable : Dr. Jean DUPONT</div>
+              <div class="flex">
+                <div class="flex items-center mr-8">
+                  <CalendarDaysIcon class="w-5 h-5 mr-2" />
+                  <p>Mercredi 26 Juin 2024</p>
+                </div>
+                <div class="flex items-center">
+                  <ClockIcon class="w-4 h-4 mr-2" />
+                  <p>10h00</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="card mb-2 flex items-center">
             <div class="bg-secondary-50 rounded-full mr-6">
               <PhoneIcon class="w-8 h-8 m-2 text-secondary-500" />
@@ -53,12 +113,7 @@
                   <p>10h00</p>
                 </div>
               </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aliquam aliquid labore libero molestiae quasi sint ullam
-                voluptas, voluptatem! Animi consequatur earum est ipsum? Dicta
-                nihil numquam odit praesentium, tempore ut.
-              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </div>
           </div>
           <div class="card mb-2 flex items-center">
@@ -79,12 +134,7 @@
                   <p>10h00</p>
                 </div>
               </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aliquam aliquid labore libero molestiae quasi sint ullam
-                voluptas, voluptatem! Animi consequatur earum est ipsum? Dicta
-                nihil numquam odit praesentium, tempore ut.
-              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </div>
           </div>
           <div class="card mb-2 flex items-center">
@@ -104,7 +154,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -164,6 +214,7 @@ import {
   CalendarDaysIcon,
   PhoneIcon,
 } from '@heroicons/vue/24/outline';
+import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
 </script>
 
