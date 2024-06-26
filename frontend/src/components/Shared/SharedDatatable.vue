@@ -3,15 +3,20 @@
     class="leading-normal inline-block min-w-full shadow-light rounded-lg overflow-hidden"
   >
     <thead>
-      <th
-        v-for="column in columns"
-        :key="column.prop"
-        class="bg-primary-200 px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-        :style="{ width: column.width || 'auto' }"
-      >
-        {{ column.label || column.prop }}
-      </th>
-      <th v-if="hasActions"></th>
+      <tr>
+        <th
+          v-for="column in columns"
+          :key="column.prop"
+          class="bg-primary-200 px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+          :style="{ width: column.width || 'auto' }"
+        >
+          {{ column.label || column.prop }}
+        </th>
+        <th
+          v-if="hasActions"
+          class="bg-primary-200 px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+        ></th>
+      </tr>
     </thead>
     <tbody class="scroll-auto">
       <tr
@@ -21,7 +26,8 @@
         class="bg-white"
         :class="{
           'cursor-pointer': areRowsClickable,
-          'hover:bg-primary-100': areRowsClickable,
+          'hover:bg-primary-50 transition duration-300 ease-in-out':
+            areRowsClickable,
         }"
       >
         <td
@@ -36,7 +42,10 @@
             {{ row[column.prop] }}
           </slot>
         </td>
-        <td v-if="hasActions">
+        <td
+          v-if="hasActions"
+          class="px-5 py-5 border-b border-gray-200 text-sm text-gray-600"
+        >
           <slot
             v-if="hasActions"
             name="actions"
