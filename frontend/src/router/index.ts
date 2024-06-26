@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/stores/authStore';
+import AlertDetailsView from '@/views/AlertDetailsView.vue';
 import AlertsView from '@/views/AlertsView.vue';
 import AppointmentsView from '@/views/AppointmentsView.vue';
 import ComponentsView from '@/views/ComponentsView.vue';
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/alerts',
       name: 'alerts',
       component: AlertsView,
+    },
+    {
+      path: '/alerts/:id',
+      name: 'alert',
+      component: AlertDetailsView,
     },
     {
       path: '/appointments',

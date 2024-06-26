@@ -62,10 +62,6 @@ alertStore.getUnasignedAlerts();
 </script>
 
 <style scoped>
-body {
-  background: #454a59;
-}
-
 .pulsating-circle-container {
   position: relative;
   width: 100%;
