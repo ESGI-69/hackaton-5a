@@ -56,7 +56,7 @@
       <tr v-if="data.length === 0">
         <td
           class="p-4 text-center text-sm text-gray-600"
-          :colspan="columns.length"
+          :colspan="columns.length + (hasActions ? 1 : 0)"
         >
           {{ emptyMessage }}
         </td>
