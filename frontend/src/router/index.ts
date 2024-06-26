@@ -8,6 +8,7 @@ import LoginView from '@/views/LoginView.vue';
 import PatientsView from '@/views/PatientsView.vue';
 import ProfessionnalsView from '@/views/ProfessionnalsView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import TestMessageView from '@/views/TestMessageView.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -67,6 +68,14 @@ const router = createRouter({
         authNotRequired: true,
       },
     },
+    {
+      path: '/test-message',
+      name: 'test-message',
+      component: TestMessageView,
+      meta: {
+        authNotRequired: true,
+      },
+    },
   ],
 });
 
@@ -75,7 +84,7 @@ router.beforeEach((to) => {
   if (!to.meta.authNotRequired && !authStore.isLogged) {
     router.push({ name: 'login' });
   }
-  if (to.meta.authNotRequired && authStore.isLogged) {
+  if ((to.name === 'login' || to.name === 'register') && authStore.isLogged) {
     router.push({ name: 'dashboard' });
   }
 });
