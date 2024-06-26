@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { prisma } from '../db';
@@ -30,6 +30,19 @@ export default {
       },
     });
     return user;
+  },
+
+  find: function (where: Prisma.UserWhereInput = {}) {
+    return prisma.user.findMany({
+      where,
+      select: {
+        id: true,
+        username: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
   },
 
   findById: function (id: number) {
