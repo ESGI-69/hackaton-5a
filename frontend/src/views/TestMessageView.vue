@@ -1,26 +1,44 @@
 <template>
   <h1>Vérification de la conversations actuelle du patient</h1>
-  <VueSelect placeholder="sélectionnez un patient" v-if="!patientStore.arePatientsLoading" v-model="selectedPatientId"
-    :options="patientStore.patients.map((patient) => ({
-      value: patient.id,
-      label: patient.name,
-    }))
-      " />
+  <VueSelect
+    placeholder="sélectionnez un patient"
+    v-if="!patientStore.arePatientsLoading"
+    v-model="selectedPatientId"
+    :options="
+      patientStore.patients.map((patient) => ({
+        value: patient.id,
+        label: patient.name,
+      }))
+    "
+  />
   <div v-else>Loading...</div>
 
-  <ChatMessages class="conv" v-if="selectedPatient" :messages="selectedPatient.conversations[0].messages" />
+  <ChatMessages
+    class="conv"
+    v-if="selectedPatient"
+    :messages="selectedPatient.conversations[0].messages"
+  />
   <div class="message-input">
-    <input type="text" v-model="newMessage" placeholder="Entre votre message..." />
-    <button @click="sendMessage" :disabled="!selectedPatientId || patientStore.isSendMessageLoading">Send</button>
+    <input
+      type="text"
+      v-model="newMessage"
+      placeholder="Entre votre message..."
+    />
+    <button
+      @click="sendMessage"
+      :disabled="!selectedPatientId || patientStore.isSendMessageLoading"
+    >
+      Send
+    </button>
   </div>
   <p v-if="patientStore.isSendMessageLoading">Envoie du message...</p>
 </template>
 
 <script lang="ts" setup>
-import "vue3-select-component/dist/style.css";
+import 'vue3-select-component/dist/style.css';
 import { usePatientStore } from '@/stores/patientStore';
 import VueSelect from 'vue3-select-component';
-import ChatMessages from "@/components/ChatMessages.vue";
+import ChatMessages from '@/components/ChatMessages.vue';
 import { computed, ref } from 'vue';
 const patientStore = usePatientStore();
 patientStore.getPatients();
@@ -36,8 +54,12 @@ const newMessage = ref('');
 const sendMessage = async () => {
   if (newMessage.value.trim() !== '' && selectedPatient.value) {
     await patientStore.sendMessage(selectedPatient.value.id, newMessage.value);
-    // @ts-ignore
-    patientStore.patients[patientStore.patients.findIndex((patient) => patient.id === selectedPatient.value?.id)].conversations[0].messages.push({
+    patientStore.patients[
+      patientStore.patients.findIndex(
+        (patient) => patient.id === selectedPatient.value?.id,
+      )
+      // @ts-ignore
+    ].conversations[0].messages.push({
       id: Math.random(),
       origin: 'PATIENT',
       text: newMessage.value,
@@ -47,7 +69,6 @@ const sendMessage = async () => {
     newMessage.value = '';
   }
 };
-
 </script>
 
 <style lang="scss" scoped>

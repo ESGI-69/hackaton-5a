@@ -32,5 +32,5 @@ export const usePatientStore = defineStore('patientStore', {
         this.isSendMessageLoading = false;
       }
     },
-  }
+  },
 });

@@ -1,9 +1,24 @@
 <template>
-  <div class="flex flex-col space-y-4 p-4 bg-white rounded-lg mt-4 overflow-auto">
-    <div v-for="message in messages" :key="message.id" class="flex"
-      :class="{ 'justify-end': message.origin === 'PATIENT', 'justify-start': message.origin !== 'PATIENT' }">
-      <div :class="messageClasses(message)" class="max-w-2/3 p-3 rounded-lg">
-        <span v-if="message.origin === 'DOCTOR' || message.origin === 'SYSTEM'" class="font-semibold mr-2">
+  <div
+    class="flex flex-col space-y-4 p-4 bg-white rounded-lg mt-4 overflow-auto"
+  >
+    <div
+      v-for="message in messages"
+      :key="message.id"
+      class="flex"
+      :class="{
+        'justify-end': message.origin === 'PATIENT',
+        'justify-start': message.origin !== 'PATIENT',
+      }"
+    >
+      <div
+        :class="messageClasses(message)"
+        class="max-w-2/3 p-3 rounded-lg"
+      >
+        <span
+          v-if="message.origin === 'DOCTOR' || message.origin === 'SYSTEM'"
+          class="font-semibold mr-2"
+        >
           {{ message.origin }}:
         </span>
         {{ message.text }}
