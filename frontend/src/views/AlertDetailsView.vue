@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4 sm:px-8 flex flex-grow h-full">
-    <div class="w-9/12 pr-12 flex flex-col">
+  <div class="p-4 sm:px-8 flex flex-grow h-full overflow-y-hidden">
+    <div class="w-9/12 pr-12 flex flex-col overflow-y-auto">
       <div class="flex">
         <div class="w-3/12">
           <div class="pulsating-circle-container">
