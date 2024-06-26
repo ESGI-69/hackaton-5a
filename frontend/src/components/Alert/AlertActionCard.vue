@@ -11,11 +11,11 @@
       <div class="flex pb-4">
         <div class="flex items-center mr-8">
           <CalendarDaysIcon class="w-5 h-5 mr-2 text-secondary-500" />
-          <p class="text-grey-300 text-sm">{{ date }}</p>
+          <p class="text-grey-500 text-sm">{{ date.toLocaleDateString() }}</p>
         </div>
         <div class="flex items-center">
           <ClockIcon class="w-4 h-4 mr-2 text-secondary-500" />
-          <p class="text-grey-300 text-sm">{{ time }}</p>
+          <p class="text-grey-500 text-sm">{{ date.toLocaleTimeString() }}</p>
         </div>
       </div>
       <p
@@ -40,21 +40,20 @@ import {
 } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
-  cardType: string;
-  date: string;
-  time: string;
+  cardType: 'MESSAGE' | 'CALL' | 'ASSIGNMENT' | 'CLOSED';
+  date: Date;
   comment?: string;
 }>();
 
 const iconComponent = computed(() => {
   switch (props.cardType) {
-    case 'message':
+    case 'MESSAGE':
       return ChatBubbleLeftEllipsisIcon;
-    case 'call':
+    case 'CALL':
       return PhoneIcon;
-    case 'assignment':
+    case 'ASSIGNMENT':
       return UserIcon;
-    case 'closed':
+    case 'CLOSED':
       return CheckCircleIcon;
     default:
       return null;
@@ -63,13 +62,13 @@ const iconComponent = computed(() => {
 
 const title = computed(() => {
   switch (props.cardType) {
-    case 'message':
+    case 'MESSAGE':
       return 'SMS envoyé au patient';
-    case 'call':
+    case 'CALL':
       return 'Appel passé au patient';
-    case 'assignment':
+    case 'ASSIGNMENT':
       return 'Responsable assigné : Dr. Jean DUPONT';
-    case 'closed':
+    case 'CLOSED':
       return 'Alerte clôturée';
     default:
       return null;
