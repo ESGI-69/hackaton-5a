@@ -47,7 +47,7 @@
             <AlertActionCard
               v-for="action in alertStore.alert.actions"
               :key="action.id"
-              :date="action.createdAt"
+              :date="new Date(action.createdAt)"
               :card-type="action.type"
               :comment="action.comment"
             />
@@ -71,17 +71,17 @@
         </div>
         <p>{{ alertStore.alert.patient.phone }}</p>
       </div>
-      <div
-        class="card"
-        v-if="alertStore.alert.responsible"
-      >
+      <div class="card">
         <div class="flex items-center">
           <div class="bg-secondary-50 rounded-full mr-6">
             <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
           </div>
           <p class="text-contrast-500 text-lg font-bold">Responsable</p>
         </div>
-        <div class="flex pb-4">
+        <div
+          class="flex pb-4"
+          v-if="alertStore.alert.responsible"
+        >
           <div class="bg-white rounded-full mr-6">
             <UserIcon class="w-8 h-4 m-2 text-white" />
           </div>

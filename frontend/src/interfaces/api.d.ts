@@ -68,7 +68,7 @@ export interface Appointment {
 
 export interface Action {
   id: number;
-  type: 'CALL' | 'MESSAGE' | 'APPOINTMENT';
+  type: 'CALL' | 'MESSAGE' | 'ASSIGNMENT' | 'CLOSED';
   alert: Alert;
   user: User;
   comment?: string;
