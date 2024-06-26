@@ -37,7 +37,7 @@
         :has-actions="true"
         :data="alertStore.unasignedAlerts"
         areRowsClickable
-        :empty-message="'Aucune alertes à traiter'"
+        :empty-message="'Aucune alerte à traiter'"
         @row-click="
           (row) => router.push({ name: 'alert', params: { id: row.id } })
         "

@@ -23,7 +23,7 @@
     ]"
     :data="alertStore.assignedAlerts"
     :areRowsClickable="true"
-    :empty-message="'Aucune alertes assignées ouvertes'"
+    :empty-message="'Aucune alerte assignée ouverte'"
     @row-click="(row) => router.push({ name: 'alert', params: { id: row.id } })"
   >
     <template #patient="{ row }">
