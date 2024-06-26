@@ -10,7 +10,7 @@ export const usePatientStore = defineStore('patientStore', {
   }),
 
   actions: {
-    async getPatients() {
+    async getAll() {
       this.arePatientsLoading = true;
       try {
         const {

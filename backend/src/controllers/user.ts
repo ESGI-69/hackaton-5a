@@ -3,6 +3,18 @@ import userService from '../service/user';
 import checkMandatoryFields from '../utils/checkMandatoryFields';
 
 export default {
+  getAll: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await userService.find();
+      res.status(200).json({
+        count: users.length,
+        results: users,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   post: async (req: Request, res: Response, next: NextFunction) => {
     try {
       checkMandatoryFields(['username', 'password'], req.body);

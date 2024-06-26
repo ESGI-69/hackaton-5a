@@ -41,7 +41,7 @@ import VueSelect from 'vue3-select-component';
 import ChatMessages from '@/components/ChatMessages.vue';
 import { computed, ref } from 'vue';
 const patientStore = usePatientStore();
-patientStore.getPatients();
+patientStore.getAll();
 const selectedPatientId = ref<number | null>(null);
 const selectedPatient = computed(() =>
   patientStore.patients.find(
