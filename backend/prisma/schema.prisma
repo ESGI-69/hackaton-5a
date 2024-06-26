@@ -93,6 +93,7 @@ model Appointment {
 }
 
 enum ActionType {
+  ASSIGNMENT
   CALL
   MESSAGE
   APPOINTMENT

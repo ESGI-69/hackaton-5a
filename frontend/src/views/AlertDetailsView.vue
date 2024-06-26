@@ -37,20 +37,69 @@
           <div class="card mb-2">Action 3</div>
           <div class="card mb-2">Action 4</div>
           <div class="card mb-2">Action 5</div>
-          <div class="card mb-2">Action 6</div>
-          <div class="card mb-2 flex align-middle">
+          <div class="card mb-2 flex items-center">
+            <div class="bg-secondary-50 rounded-full mr-6">
+              <PhoneIcon class="w-8 h-8 m-2 text-secondary-500" />
+            </div>
+            <div>
+              <div>Appel passé au patient</div>
+              <div class="flex">
+                <div class="flex items-center mr-8">
+                  <CalendarDaysIcon class="w-5 h-5 mr-2" />
+                  <p>Mercredi 26 Juin 2024</p>
+                </div>
+                <div class="flex items-center">
+                  <ClockIcon class="w-4 h-4 mr-2" />
+                  <p>10h00</p>
+                </div>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Aliquam aliquid labore libero molestiae quasi sint ullam
+                voluptas, voluptatem! Animi consequatur earum est ipsum? Dicta
+                nihil numquam odit praesentium, tempore ut.
+              </p>
+            </div>
+          </div>
+          <div class="card mb-2 flex items-center">
+            <div class="bg-secondary-50 rounded-full mr-6">
+              <ChatBubbleLeftEllipsisIcon
+                class="w-8 h-8 m-2 text-secondary-500"
+              />
+            </div>
+            <div>
+              <div>Envoi d'un SMS</div>
+              <div class="flex">
+                <div class="flex items-center mr-8">
+                  <CalendarDaysIcon class="w-5 h-5 mr-2" />
+                  <p>Mercredi 26 Juin 2024</p>
+                </div>
+                <div class="flex items-center">
+                  <ClockIcon class="w-4 h-4 mr-2" />
+                  <p>10h00</p>
+                </div>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Aliquam aliquid labore libero molestiae quasi sint ullam
+                voluptas, voluptatem! Animi consequatur earum est ipsum? Dicta
+                nihil numquam odit praesentium, tempore ut.
+              </p>
+            </div>
+          </div>
+          <div class="card mb-2 flex items-center">
             <div class="bg-secondary-50 rounded-full mr-6">
               <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
             </div>
             <div>
-              <div>Assignation d'un responsable : Martin DUPUIS</div>
+              <div>Assignation d'un responsable : Dr. Jean DUPONT</div>
               <div class="flex">
-                <div class="flex mr-8">
-                  <CalendarDaysIcon class="w-6 h-6 mr-2" />
+                <div class="flex items-center mr-8">
+                  <CalendarDaysIcon class="w-5 h-5 mr-2" />
                   <p>Mercredi 26 Juin 2024</p>
                 </div>
-                <div class="flex">
-                  <ClockIcon class="w-6 h-6 mr-2" />
+                <div class="flex items-center">
+                  <ClockIcon class="w-4 h-4 mr-2" />
                   <p>10h00</p>
                 </div>
               </div>
@@ -85,6 +134,10 @@
           text="Envoyer un SMS"
         />
         <AlertActionButton
+          :icon="PhoneIcon"
+          text="Appel"
+        />
+        <AlertActionButton
           :icon="ChatBubbleLeftRightIcon"
           text="Voir les messages"
         />
@@ -109,6 +162,7 @@ import {
   CheckCircleIcon,
   ClockIcon,
   CalendarDaysIcon,
+  PhoneIcon,
 } from '@heroicons/vue/24/outline';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
 </script>
