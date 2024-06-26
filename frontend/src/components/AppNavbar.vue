@@ -38,7 +38,7 @@ const toggleMenu = () => {
 const menuItems = [
   { name: 'Dashboard', routeName: 'dashboard' },
   { name: 'Alertes', routeName: 'alerts' },
-  { name: 'Rendez-vous', routeName: 'appointments' },
+  // { name: 'Rendez-vous', routeName: 'appointments' },
   { name: 'Professionnels', routeName: 'professionnals' },
   { name: 'Patients', routeName: 'patients' },
 ];

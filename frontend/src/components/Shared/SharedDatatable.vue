@@ -44,6 +44,14 @@
           />
         </td>
       </tr>
+      <tr v-if="data.length === 0">
+        <td
+          class="p-4 text-center text-sm text-gray-600"
+          :colspan="columns.length"
+        >
+          {{ emptyMessage }}
+        </td>
+      </tr>
     </tbody>
   </table>
 </template>
@@ -53,16 +61,22 @@ export type Data = {
   [key: string]: any;
 };
 
-const props = defineProps<{
-  columns: {
-    prop: keyof D;
-    label?: string;
-    width?: HTMLElement['style']['width'];
-  }[];
-  data: D[];
-  hasActions?: boolean;
-  areRowsClickable?: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    columns: {
+      prop: keyof D;
+      label?: string;
+      width?: HTMLElement['style']['width'];
+    }[];
+    data: D[];
+    hasActions?: boolean;
+    areRowsClickable?: boolean;
+    emptyMessage?: string;
+  }>(),
+  {
+    emptyMessage: 'Aucune donnée à afficher',
+  },
+);
 
 const emit = defineEmits<{
   (event: 'row-click', row: D): void;
