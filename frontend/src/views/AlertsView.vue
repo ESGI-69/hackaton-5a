@@ -1,31 +1,26 @@
 <template>
-  <SharedDatatable
-    :columns="[
-      {
-        prop: 'patient',
-        label: 'Patient',
-        width: '100px',
-      },
-      {
-        prop: 'createdAt',
-        label: 'Ouverture de l\'alerte',
-        width: '200px',
-      },
-      {
-        prop: 'summary',
-        label: 'Raisons de l\'alerte',
-      },
-      {
-        prop: 'score',
-        label: 'Score de l\'alerte',
-        width: '175px',
-      },
-    ]"
-    :data="alertStore.assignedAlerts"
-    :areRowsClickable="true"
-    :empty-message="'Aucune alertes assignées ouvertes'"
-    @row-click="(row) => router.push({ name: 'alert', params: { id: row.id } })"
-  >
+  <SharedDatatable :columns="[
+    {
+      prop: 'patient',
+      label: 'Patient',
+      width: '100px',
+    },
+    {
+      prop: 'createdAt',
+      label: 'Ouverture de l\'alerte',
+      width: '200px',
+    },
+    {
+      prop: 'summary',
+      label: 'Raisons de l\'alerte',
+    },
+    {
+      prop: 'score',
+      label: 'Score de l\'alerte',
+      width: '175px',
+    },
+  ]" :data="alertStore.assignedAlerts" :areRowsClickable="true" :empty-message="'Aucune alertes assignées ouvertes'"
+    @row-click="(row) => router.push({ name: 'alert', params: { id: row.id } })">
     <template #patient="{ row }">
       {{ row.patient.name }}
     </template>
@@ -33,7 +28,7 @@
       {{ new Date(row.createdAt).toLocaleDateString() }}
     </template>
     <template #score="{ row }">
-      <ScoreTag :score="row.score * 100" />
+      <ScoreTag :score="row.score" />
     </template>
   </SharedDatatable>
 </template>

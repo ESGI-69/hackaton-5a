@@ -8,7 +8,7 @@
               <div class="circle-text">
                 <div class="font-bold">Score</div>
                 <div class="text-4xl font-bold">
-                  {{ alertStore.alert.score * 100 }}
+                  {{ alertStore.alert.score }}
                 </div>
               </div>
             </div>
@@ -49,20 +49,13 @@
         </div>
       </div>
       <div class="pt-12 flex flex-col flex-grow">
-        <div
-          class="pb-4 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold"
-        >
+        <div class="pb-4 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold">
           Actions prises ({{ alertStore.alert.actions?.length || 0 }})
         </div>
         <div class="h-fit overflow-y-auto">
           <template v-if="alertStore.alert.actions?.length > 0">
-            <AlertActionCard
-              v-for="action in alertStore.alert.actions"
-              :key="action.id"
-              :date="new Date(action.createdAt)"
-              :card-type="action.type"
-              :comment="action.comment"
-            />
+            <AlertActionCard v-for="action in alertStore.alert.actions" :key="action.id"
+              :date="new Date(action.createdAt)" :card-type="action.type" :comment="action.comment" />
           </template>
           <span v-else>Aucune action prise</span>
         </div>
@@ -87,10 +80,7 @@
         <div class="flex items-center">
           <p class="text-contrast-500 text-lg font-bold">Responsable</p>
         </div>
-        <div
-          class="flex pb-4"
-          v-if="alertStore.alert.responsible"
-        >
+        <div class="flex pb-4" v-if="alertStore.alert.responsible">
           <div class="bg-white rounded-full mr-6">
             <UserIcon class="w-8 h-4 m-2 text-white" />
           </div>
@@ -104,38 +94,17 @@
         <div v-else>
           <p class="text-grey-300">Aucun responsable</p>
         </div>
-        <CustomButton
-          text="Assigner un responsable"
-          class="w-full"
-        />
+        <CustomButton text="Assigner un responsable" class="w-full" />
       </div>
       <div class="card">
-        <div
-          class="pb-2 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold"
-        >
+        <div class="pb-2 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold">
           Actions
         </div>
-        <AlertActionButton
-          :icon="ChatBubbleLeftEllipsisIcon"
-          text="Envoyer un SMS"
-        />
-        <AlertActionButton
-          :icon="PhoneIcon"
-          text="Appel"
-        />
-        <AlertActionButton
-          :icon="ChatBubbleLeftRightIcon"
-          text="Voir les messages"
-        />
-        <AlertActionButton
-          v-if="alertStore.alert.responsible"
-          :icon="UserIcon"
-          text="Changer de responsable"
-        />
-        <AlertActionButton
-          :icon="CheckCircleIcon"
-          text="Clôturer l'alerte"
-        />
+        <AlertActionButton :icon="ChatBubbleLeftEllipsisIcon" text="Envoyer un SMS" />
+        <AlertActionButton :icon="PhoneIcon" text="Appel" />
+        <AlertActionButton :icon="ChatBubbleLeftRightIcon" text="Voir les messages" />
+        <AlertActionButton v-if="alertStore.alert.responsible" :icon="UserIcon" text="Changer de responsable" />
+        <AlertActionButton :icon="CheckCircleIcon" text="Clôturer l'alerte" />
       </div>
     </div>
   </div>
@@ -230,6 +199,7 @@ if (route.params.id && typeof route.params.id === 'string') {
   0% {
     transform: translate(-50%, -50%) scale(0.33);
   }
+
   80%,
   100% {
     opacity: 0;
@@ -240,9 +210,11 @@ if (route.params.id && typeof route.params.id === 'string') {
   0% {
     transform: scale(0.8);
   }
+
   50% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0.8);
   }

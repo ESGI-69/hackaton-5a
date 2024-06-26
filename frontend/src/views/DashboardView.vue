@@ -11,35 +11,28 @@
       </div>
     </div>
     <div class="table-container -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-      <SharedDatatable
-        :columns="[
-          {
-            prop: 'score',
-            label: 'Score de l\'alerte',
-            width: '175px',
-          },
-          {
-            prop: 'patient',
-            label: 'Patient',
-            width: '100px',
-          },
-          {
-            prop: 'createdAt',
-            label: 'Ouverture de l\'alerte',
-            width: '200px',
-          },
-          {
-            prop: 'summary',
-            label: 'Raisons de l\'alerte',
-          },
-        ]"
-        :data="alertStore.unasignedAlerts"
-        areRowsClickable
-        :empty-message="'Aucune alertes à traiter'"
-        @row-click="
-          (row) => router.push({ name: 'alert', params: { id: row.id } })
-        "
-      >
+      <SharedDatatable :columns="[
+        {
+          prop: 'score',
+          label: 'Score de l\'alerte',
+          width: '175px',
+        },
+        {
+          prop: 'patient',
+          label: 'Patient',
+          width: '100px',
+        },
+        {
+          prop: 'createdAt',
+          label: 'Ouverture de l\'alerte',
+          width: '200px',
+        },
+        {
+          prop: 'summary',
+          label: 'Raisons de l\'alerte',
+        },
+      ]" :data="alertStore.unasignedAlerts" areRowsClickable :empty-message="'Aucune alertes à traiter'" @row-click="(row) => router.push({ name: 'alert', params: { id: row.id } })
+          ">
         <template #patient="{ row }">
           {{ row.patient.name }}
         </template>
@@ -47,7 +40,7 @@
           {{ new Date(row.createdAt).toLocaleDateString() }}
         </template>
         <template #score="{ row }">
-          <ScoreTag :score="row.score * 100" />
+          <ScoreTag :score="row.score" />
         </template>
       </SharedDatatable>
     </div>
@@ -130,6 +123,7 @@ alertStore.getUnasignedAlerts();
   0% {
     transform: translate(-50%, -50%) scale(0.33);
   }
+
   80%,
   100% {
     opacity: 0;
@@ -140,9 +134,11 @@ alertStore.getUnasignedAlerts();
   0% {
     transform: scale(0.8);
   }
+
   50% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0.8);
   }
