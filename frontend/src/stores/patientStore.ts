@@ -6,6 +6,7 @@ export const usePatientStore = defineStore('patientStore', {
   state: () => ({
     arePatientsLoading: false,
     patients: [] as Patient[],
+    isSendMessageLoading: false,
   }),
 
   actions: {
@@ -20,5 +21,16 @@ export const usePatientStore = defineStore('patientStore', {
         this.arePatientsLoading = false;
       }
     },
-  },
+
+    async sendMessage(patientId: number, message: string) {
+      this.isSendMessageLoading = true;
+      try {
+        await api.post(`/patients/${patientId}/message`, {
+          message,
+        });
+      } finally {
+        this.isSendMessageLoading = false;
+      }
+    },
+  }
 });
