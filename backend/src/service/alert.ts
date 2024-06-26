@@ -17,22 +17,16 @@ export default {
     conversationId: number,
     responsibleId?: number,
   ) {
-    let alert;
-
-    try {
-      alert = await prisma.alert.create({
-        data: {
-          score,
-          reasons,
-          summary,
-          patientId,
-          responsibleId,
-          conversationId,
-        },
-      });
-    } catch (error) {
-      console.log('Error creating alert:', error);
-    }
+    const alert = await prisma.alert.create({
+      data: {
+        score,
+        reasons,
+        summary,
+        patientId,
+        responsibleId,
+        conversationId,
+      },
+    });
 
     return alert;
   },
@@ -59,18 +53,14 @@ export default {
     data: CreateAlterInput,
     responsibleId?: number,
   ) {
-    let alert;
-    try {
-      alert = await prisma.alert.update({
-        where: { id },
-        data: {
-          ...data,
-          responsibleId,
-        },
-      });
-    } catch (error) {
-      console.log('Error updating alert:', error);
-    }
+    const alert = await prisma.alert.update({
+      where: { id },
+      data: {
+        ...data,
+        responsibleId,
+      },
+    });
+
     return alert;
   },
 
