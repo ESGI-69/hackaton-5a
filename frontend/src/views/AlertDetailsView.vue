@@ -40,10 +40,10 @@
         <div
           class="pb-4 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold"
         >
-          Actions prises ({{ alertStore.alert.actions.length }})
+          Actions prises ({{ alertStore.alert.actions?.length || 0 }})
         </div>
         <div class="h-fit overflow-y-auto">
-          <template v-if="alertStore.alert.actions.length > 0">
+          <template v-if="alertStore.alert.actions?.length > 0">
             <AlertActionCard
               v-for="action in alertStore.alert.actions"
               :key="action.id"
@@ -59,23 +59,20 @@
     <div class="w-3/12 flex flex-col justify-between">
       <div class="card text-center">
         <p class="text-contrast-500 text-lg font-bold">
-          {{ alertStore.alert.patient.name }}
+          {{ alertStore.alert.patient?.name }}
         </p>
         <div class="flex justify-evenly">
-          <p>{{ alertStore.alert.patient.gender }}</p>
+          <p>{{ alertStore.alert.patient?.gender }}</p>
           <p>
             {{
-              new Date(alertStore.alert.patient.birthDate).toLocaleDateString()
+              new Date(alertStore.alert.patient?.birthDate).toLocaleDateString()
             }}
           </p>
         </div>
-        <p>{{ alertStore.alert.patient.phone }}</p>
+        <p>{{ alertStore.alert.patient?.phone }}</p>
       </div>
       <div class="card">
         <div class="flex items-center">
-          <div class="bg-secondary-50 rounded-full mr-6">
-            <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
-          </div>
           <p class="text-contrast-500 text-lg font-bold">Responsable</p>
         </div>
         <div
@@ -87,10 +84,13 @@
           </div>
           <p class="text-grey-300">
             {{
-              alertStore.alert.responsible.name ||
-              alertStore.alert.responsible.username
+              alertStore.alert.responsible?.name ||
+              alertStore.alert.responsible?.username
             }}
           </p>
+        </div>
+        <div v-else>
+          <p class="text-grey-300">Aucun responsable</p>
         </div>
         <CustomButton
           text="Assigner un responsable"
@@ -116,6 +116,7 @@
           text="Voir les messages"
         />
         <AlertActionButton
+          v-if="alertStore.alert.responsible"
           :icon="UserIcon"
           text="Changer de responsable"
         />
