@@ -11,28 +11,35 @@
       </div>
     </div>
     <div class="table-container -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-      <SharedDatatable :columns="[
-        {
-          prop: 'score',
-          label: 'Score de l\'alerte',
-          width: '175px',
-        },
-        {
-          prop: 'patient',
-          label: 'Patient',
-          width: '100px',
-        },
-        {
-          prop: 'createdAt',
-          label: 'Ouverture de l\'alerte',
-          width: '200px',
-        },
-        {
-          prop: 'summary',
-          label: 'Raisons de l\'alerte',
-        },
-      ]" :data="alertStore.unasignedAlerts" areRowsClickable :empty-message="'Aucune alertes à traiter'" @row-click="(row) => router.push({ name: 'alert', params: { id: row.id } })
-          ">
+      <SharedDatatable
+        :columns="[
+          {
+            prop: 'score',
+            label: 'Score de l\'alerte',
+            width: '175px',
+          },
+          {
+            prop: 'patient',
+            label: 'Patient',
+            width: '100px',
+          },
+          {
+            prop: 'createdAt',
+            label: 'Ouverture de l\'alerte',
+            width: '200px',
+          },
+          {
+            prop: 'summary',
+            label: 'Raisons de l\'alerte',
+          },
+        ]"
+        :data="alertStore.unasignedAlerts"
+        areRowsClickable
+        :empty-message="'Aucune alertes à traiter'"
+        @row-click="
+          (row) => router.push({ name: 'alert', params: { id: row.id } })
+        "
+      >
         <template #patient="{ row }">
           {{ row.patient.name }}
         </template>
