@@ -7,7 +7,9 @@
             <div class="pulsating-circle">
               <div class="circle-text">
                 <div class="font-bold">Score</div>
-                <div class="text-4xl font-bold">4</div>
+                <div class="text-4xl font-bold">
+                  {{ alertStore.alert.score * 100 }}
+                </div>
               </div>
             </div>
           </div>
@@ -18,18 +20,18 @@
               <h2 class="pb-2 text-contrast-500 text-lg font-bold">
                 Ouverture de l'alerte
               </h2>
-              <p class="text-grey-500">Mardi 25 Juin 2024</p>
-              <p class="text-grey-500">15h00</p>
+              <p class="text-grey-500">
+                {{ new Date(alertStore.alert.createdAt).toLocaleDateString() }}
+              </p>
+              <p class="text-grey-500">
+                {{ new Date(alertStore.alert.createdAt).toLocaleTimeString() }}
+              </p>
             </div>
             <div class="p-4 w-6/12 max-h-1/5 overflow-y-auto">
               <h2 class="pb-2 text-contrast-500 text-lg font-bold">
                 Raisons de l'alerte
               </h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aperiam, dolorum error excepturi nam perferendis quam saepe sint
-                velit!
-              </p>
+              <p>{{ alertStore.alert.summary }}</p>
             </div>
           </div>
         </div>
@@ -38,45 +40,41 @@
         <div
           class="pb-4 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold"
         >
-          Actions prises (3)
+          Actions prises ({{ alertStore.alert.actions.length }})
         </div>
         <div class="h-fit overflow-y-auto">
-          <AlertActionCard
-            :date="new Date()"
-            card-type="CLOSED"
-            time="13h00"
-            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-          />
-          <AlertActionCard
-            :date="new Date()"
-            card-type="CALL"
-            time="12h00"
-            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-          />
-          <AlertActionCard
-            :date="new Date()"
-            card-type="MESSAGE"
-            time="11h00"
-            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-          />
-          <AlertActionCard
-            :date="new Date()"
-            card-type="ASSIGNMENT"
-            time="10h00"
-          />
+          <template v-if="alertStore.alert.actions.length > 0">
+            <AlertActionCard
+              v-for="action in alertStore.alert.actions"
+              :key="action.id"
+              :date="action.createdAt"
+              :card-type="action.type"
+              :comment="action.comment"
+            />
+          </template>
+          <span v-else>Aucune action prise</span>
         </div>
       </div>
     </div>
     <div class="w-3/12 flex flex-col justify-between">
       <div class="card text-center">
-        <p class="text-contrast-500 text-lg font-bold">John DOE</p>
+        <p class="text-contrast-500 text-lg font-bold">
+          {{ alertStore.alert.patient.name }}
+        </p>
         <div class="flex justify-evenly">
-          <p>M</p>
-          <p>84 ans</p>
+          <p>{{ alertStore.alert.patient.gender }}</p>
+          <p>
+            {{
+              new Date(alertStore.alert.patient.birthDate).toLocaleDateString()
+            }}
+          </p>
         </div>
-        <p>06.02.83.66.29</p>
+        <p>{{ alertStore.alert.patient.phone }}</p>
       </div>
-      <div class="card">
+      <div
+        class="card"
+        v-if="alertStore.alert.responsible"
+      >
         <div class="flex items-center">
           <div class="bg-secondary-50 rounded-full mr-6">
             <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
@@ -87,7 +85,12 @@
           <div class="bg-white rounded-full mr-6">
             <UserIcon class="w-8 h-4 m-2 text-white" />
           </div>
-          <p class="text-grey-300">Dr. Jean DUPONT</p>
+          <p class="text-grey-300">
+            {{
+              alertStore.alert.responsible.name ||
+              alertStore.alert.responsible.username
+            }}
+          </p>
         </div>
         <CustomButton
           text="Assigner un responsable"
@@ -126,6 +129,7 @@
 </template>
 
 <script setup lang="ts">
+import { useAlertStore } from '@/stores/alertStore';
 import {
   UserIcon,
   ChatBubbleLeftEllipsisIcon,
@@ -138,6 +142,14 @@ import {
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
 import CustomButton from '@/components/CustomButton.vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const alertStore = useAlertStore();
+if (route.params.id && typeof route.params.id === 'string') {
+  alertStore.getAlert(route.params.id);
+}
 </script>
 
 <style scoped>

@@ -11,6 +11,9 @@ export const useAlertStore = defineStore('alertStore', {
     assignedAlerts: [] as Alert[],
     assignedAlertsCount: 0,
     areAsignedAlertsLoading: false,
+
+    isAlertLoading: false,
+    alert: {} as Alert,
   }),
 
   actions: {
@@ -33,6 +36,16 @@ export const useAlertStore = defineStore('alertStore', {
         this.assignedAlerts = data.results;
       } finally {
         this.areAsignedAlertsLoading = false;
+      }
+    },
+
+    async getAlert(id: string) {
+      this.isAlertLoading = true;
+      try {
+        const { data } = await api.get(`/alerts/${id}`);
+        this.alert = data;
+      } finally {
+        this.isAlertLoading = false;
       }
     },
   },
