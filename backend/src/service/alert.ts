@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from '../db';
 
 interface CreateAlterInput {
@@ -30,12 +31,13 @@ export default {
     return alert;
   },
 
-  getAll: async function () {
+  getAll: async function (where: Prisma.AlertWhereInput = {}) {
     const alerts = await prisma.alert.findMany({
       include: {
         patient: true,
         responsible: true,
       },
+      where,
     });
     return alerts;
   },

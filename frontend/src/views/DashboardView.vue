@@ -3,7 +3,9 @@
     <div class="pulsating-circle-container">
       <div class="pulsating-circle">
         <div class="circle-text">
-          <div class="text-4xl font-bold">{{ alertStore.alertsCount }}</div>
+          <div class="text-4xl font-bold">
+            {{ alertStore.unasignedAlertsCount }}
+          </div>
           <div class="font-bold">alertes</div>
         </div>
       </div>
@@ -11,6 +13,11 @@
     <div class="table-container -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
       <SharedDatatable
         :columns="[
+          {
+            prop: 'score',
+            label: 'Score de l\'alerte',
+            width: '175px',
+          },
           {
             prop: 'patient',
             label: 'Patient',
@@ -25,14 +32,10 @@
             prop: 'summary',
             label: 'Raisons de l\'alerte',
           },
-          {
-            prop: 'score',
-            label: 'Score de l\'alerte',
-            width: '175px',
-          },
         ]"
-        :data="alertStore.alerts"
-        :areRowsClickable="true"
+        :data="alertStore.unasignedAlerts"
+        areRowsClickable
+        :empty-message="'Aucune alertes à traiter'"
         @row-click="(row) => console.log('row', row.id)"
       >
         <template #patient="{ row }">
@@ -55,7 +58,7 @@ import SharedDatatable from '@/components/Shared/SharedDatatable.vue';
 import { useAlertStore } from '@/stores/alertStore';
 
 const alertStore = useAlertStore();
-alertStore.getAlerts();
+alertStore.getUnasignedAlerts();
 </script>
 
 <style scoped>

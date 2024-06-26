@@ -4,19 +4,35 @@ import { defineStore } from 'pinia';
 
 export const useAlertStore = defineStore('alertStore', {
   state: () => ({
-    alerts: [] as Alert[],
-    alertsCount: 0,
-    areAlertsLoading: false,
+    unasignedAlerts: [] as Alert[],
+    unasignedAlertsCount: 0,
+    areUnasignedAlertsLoading: false,
+
+    assignedAlerts: [] as Alert[],
+    assignedAlertsCount: 0,
+    areAsignedAlertsLoading: false,
   }),
+
   actions: {
-    async getAlerts() {
-      this.areAlertsLoading = true;
+    async getUnasignedAlerts() {
+      this.areUnasignedAlertsLoading = true;
       try {
-        const { data } = await api.get('/alerts/');
-        this.alertsCount = data.count;
-        this.alerts = data.results;
+        const { data } = await api.get('/alerts/unasigned');
+        this.unasignedAlertsCount = data.count;
+        this.unasignedAlerts = data.results;
       } finally {
-        this.areAlertsLoading = false;
+        this.areUnasignedAlertsLoading = false;
+      }
+    },
+
+    async getAssignedAlerts() {
+      this.areAsignedAlertsLoading = true;
+      try {
+        const { data } = await api.get('/alerts/assigned');
+        this.assignedAlertsCount = data.count;
+        this.assignedAlerts = data.results;
+      } finally {
+        this.areAsignedAlertsLoading = false;
       }
     },
   },
