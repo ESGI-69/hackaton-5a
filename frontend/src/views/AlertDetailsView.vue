@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 sm:px-8 flex h-[90vh]">
+  <div class="p-4 sm:px-8 flex flex-grow">
     <div class="w-9/12 pr-12 flex flex-col">
       <div class="flex">
         <div class="w-3/12">
@@ -15,12 +15,16 @@
         <div class="w-9/12">
           <div class="card p-0 flex">
             <div class="p-4 w-6/12 border border-grey-100">
-              <h2 class="pb-2">Ouverture de l'alerte</h2>
-              <p>Mardi 25 Juin 2024</p>
-              <p>15h00</p>
+              <h2 class="pb-2 text-contrast-500 text-lg font-bold">
+                Ouverture de l'alerte
+              </h2>
+              <p class="text-grey-500">Mardi 25 Juin 2024</p>
+              <p class="text-grey-500">15h00</p>
             </div>
             <div class="p-4 w-6/12 max-h-1/5 overflow-y-auto">
-              <h2 class="pb-2">Raisons de l'alerte</h2>
+              <h2 class="pb-2 text-contrast-500 text-lg font-bold">
+                Raisons de l'alerte
+              </h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Aperiam, dolorum error excepturi nam perferendis quam saepe sint
@@ -30,38 +34,42 @@
           </div>
         </div>
       </div>
-      <div class="pt-12 flex flex-col">
-        <div class="pb-4 mb-4 border-b border-gray-300">Actions prises (3)</div>
-        <div class="overflow-y-auto">
-          <div class="card mb-2">Action 2</div>
-          <div class="card mb-2">Action 3</div>
-          <div class="card mb-2">Action 4</div>
-          <div class="card mb-2">Action 5</div>
-          <div class="card mb-2">Action 6</div>
-          <div class="card mb-2 flex align-middle">
-            <div class="bg-secondary-50 rounded-full mr-6">
-              <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
-            </div>
-            <div>
-              <div>Assignation d'un responsable : Martin DUPUIS</div>
-              <div class="flex">
-                <div class="flex mr-8">
-                  <CalendarDaysIcon class="w-6 h-6 mr-2" />
-                  <p>Mercredi 26 Juin 2024</p>
-                </div>
-                <div class="flex">
-                  <ClockIcon class="w-6 h-6 mr-2" />
-                  <p>10h00</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="pt-12 flex flex-col flex-grow">
+        <div
+          class="pb-4 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold"
+        >
+          Actions prises (3)
+        </div>
+        <div class="h-fit overflow-y-auto">
+          <AlertActionCard
+            :date="new Date()"
+            card-type="CLOSED"
+            time="13h00"
+            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+          />
+          <AlertActionCard
+            :date="new Date()"
+            card-type="CALL"
+            time="12h00"
+            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+          />
+          <AlertActionCard
+            :date="new Date()"
+            card-type="MESSAGE"
+            time="11h00"
+            comment="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+          />
+          <AlertActionCard
+            :date="new Date()"
+            card-type="ASSIGNMENT"
+            time="10h00"
+          />
         </div>
       </div>
     </div>
     <div class="w-3/12 flex flex-col justify-between">
       <div class="card text-center">
-        <p>John DOE</p>
+        <p class="text-contrast-500 text-lg font-bold">John DOE</p>
         <div class="flex justify-evenly">
           <p>M</p>
           <p>84 ans</p>
@@ -69,20 +77,36 @@
         <p>06.02.83.66.29</p>
       </div>
       <div class="card">
-        <div class="flex">
-          <UserIcon class="w-6 h-6 mr-4" />
-          <p>Responsable</p>
+        <div class="flex items-center">
+          <div class="bg-secondary-50 rounded-full mr-6">
+            <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
+          </div>
+          <p class="text-contrast-500 text-lg font-bold">Responsable</p>
         </div>
-        <div class="flex">
-          <UserIcon class="w-6 h-6 mr-4 text-white" />
-          <p>Dr. Jean DUPONT</p>
+        <div class="flex pb-4">
+          <div class="bg-white rounded-full mr-6">
+            <UserIcon class="w-8 h-4 m-2 text-white" />
+          </div>
+          <p class="text-grey-300">Dr. Jean DUPONT</p>
         </div>
+        <CustomButton
+          text="Assigner un responsable"
+          class="w-full"
+        />
       </div>
       <div class="card">
-        <div class="pb-2 mb-4 border-b border-gray-300">Actions</div>
+        <div
+          class="pb-2 mb-4 border-b border-gray-300 text-grey-500 text-lg font-bold"
+        >
+          Actions
+        </div>
         <AlertActionButton
           :icon="ChatBubbleLeftEllipsisIcon"
           text="Envoyer un SMS"
+        />
+        <AlertActionButton
+          :icon="PhoneIcon"
+          text="Appel"
         />
         <AlertActionButton
           :icon="ChatBubbleLeftRightIcon"
@@ -109,8 +133,11 @@ import {
   CheckCircleIcon,
   ClockIcon,
   CalendarDaysIcon,
+  PhoneIcon,
 } from '@heroicons/vue/24/outline';
+import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
+import CustomButton from '@/components/CustomButton.vue';
 </script>
 
 <style scoped>
