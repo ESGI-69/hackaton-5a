@@ -10,17 +10,17 @@
         {
           prop: 'patient',
           label: 'Patient',
-          width: '30%',
+          width: '20%',
         },
         {
           prop: 'createdAt',
           label: 'Ouverture de l\'alerte',
-          width: '15%',
+          width: '25%',
         },
         {
           prop: 'summary',
           label: 'Raisons de l\'alerte',
-          width: '45%',
+          width: '40%',
         },
       ]"
       :has-actions="true"
