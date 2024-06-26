@@ -33,7 +33,7 @@
       {{ new Date(row.createdAt).toLocaleDateString() }}
     </template>
     <template #score="{ row }">
-      <ScoreTag :score="row.score * 100" />
+      <ScoreTag :score="row.score" />
     </template>
   </SharedDatatable>
 </template>

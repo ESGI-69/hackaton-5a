@@ -8,7 +8,7 @@
               <div class="circle-text">
                 <div class="font-bold">Score</div>
                 <div class="text-4xl font-bold">
-                  {{ alertStore.alert.score * 100 }}
+                  {{ alertStore.alert.score }}
                 </div>
               </div>
             </div>
@@ -230,6 +230,7 @@ if (route.params.id && typeof route.params.id === 'string') {
   0% {
     transform: translate(-50%, -50%) scale(0.33);
   }
+
   80%,
   100% {
     opacity: 0;
@@ -240,9 +241,11 @@ if (route.params.id && typeof route.params.id === 'string') {
   0% {
     transform: scale(0.8);
   }
+
   50% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0.8);
   }
