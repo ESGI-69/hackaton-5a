@@ -73,15 +73,17 @@
         <p class="text-contrast-500 text-lg font-bold mb-4">
           {{ alertStore.alert.patient?.name }}
         </p>
-        <div class="flex justify-evenly text-grey-300">
-          <p>{{ alertStore.alert.patient?.gender }}</p>
+        <div class="flex justify-around text-grey-300">
+          <p>
+            {{ alertStore.alert.patient?.gender == 'male' ? 'Homme' : 'Femme' }}
+          </p>
           <p>
             {{
               new Date(alertStore.alert.patient?.birthDate).toLocaleDateString()
             }}
           </p>
+          <p>{{ alertStore.alert.patient?.phone }}</p>
         </div>
-        <p>{{ alertStore.alert.patient?.phone }}</p>
       </div>
       <div class="card">
         <div class="flex items-center">
