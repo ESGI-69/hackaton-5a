@@ -87,7 +87,10 @@
       </div>
       <div class="card">
         <div class="flex items-center">
-          <p class="text-contrast-500 text-lg font-bold">Responsable</p>
+          <div class="bg-secondary-50 rounded-full mr-6">
+            <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
+          </div>
+          <p class="text-contrast-500 pb-4 text-lg font-bold">Responsable</p>
         </div>
         <div
           class="flex pb-4"
@@ -103,7 +106,13 @@
             }}
           </p>
         </div>
-        <div v-else>
+        <div
+          class="flex pb-4 items-center"
+          v-else
+        >
+          <div class="bg-white rounded-full mr-6">
+            <UserIcon class="w-8 h-4 m-2 text-white" />
+          </div>
           <p class="text-grey-300">Aucun responsable</p>
         </div>
         <CustomButton
@@ -153,6 +162,7 @@ import {
   PhoneIcon,
   ClockIcon,
   CalendarDaysIcon,
+  UsersIcon,
 } from '@heroicons/vue/24/outline';
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
