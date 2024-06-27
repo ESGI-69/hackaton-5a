@@ -16,6 +16,10 @@ export const useAlertStore = defineStore('alertStore', {
     alert: {} as Alert,
 
     isCloseLoading: false,
+
+    isSendMessageLoading: false,
+
+    isAssignLoading: false,
   }),
 
   actions: {
@@ -57,6 +61,24 @@ export const useAlertStore = defineStore('alertStore', {
         await api.post(`/alerts/${alertId}/close`, { message });
       } finally {
         this.isCloseLoading = false;
+      }
+    },
+
+    async sendMessage(alertId: number, message: string) {
+      this.isSendMessageLoading = true;
+      try {
+        await api.post(`/alerts/${alertId}/message`, { message });
+      } finally {
+        this.isSendMessageLoading = false;
+      }
+    },
+
+    async assignDoctor(alertId: number, userId: number) {
+      this.isAssignLoading = true;
+      try {
+        await api.post(`/alerts/${alertId}/assign`, { userId });
+      } finally {
+        this.isAssignLoading = false;
       }
     },
   },

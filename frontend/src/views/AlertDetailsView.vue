@@ -126,6 +126,7 @@
         <CustomButton
           text="Assigner un responsable"
           class="w-full"
+          @click="showAssignModal"
         />
       </div>
       <div class="card">
@@ -153,6 +154,7 @@
           v-if="alertStore.alert.responsible"
           :icon="UserIcon"
           text="Changer de responsable"
+          @click="showAssignModal"
         />
         <AlertActionButton
           v-if="!alertStore.alert.handledAt"
@@ -225,9 +227,20 @@
     :isOpen="isResponsibleModalOpen"
     title="Assigner un responsable"
     @close="isResponsibleModalOpen = false"
-    @confirm="isResponsibleModalOpen = false"
+    @confirm="assignResponsible"
     btn-text="Confirmer"
   >
+    <VueSelect
+      placeholder="Sélectionnez un professionnel de santé"
+      v-if="!userStore.areUsersLoading"
+      v-model="selectedUserId"
+      :options="
+        userStore.users.map((user) => ({
+          value: user.id,
+          label: user.name,
+        }))
+      "
+    />
   </AlertModal>
 
   <AlertModal
@@ -259,6 +272,8 @@ import { useRoute, useRouter } from 'vue-router';
 import AlertModal from '@/components/Alert/AlertModal.vue';
 import ChatMessages from '@/components/ChatMessages.vue';
 import { ref } from 'vue';
+import { useUserStore } from '@/stores/userStore';
+import VueSelect from 'vue3-select-component';
 
 const route = useRoute();
 
@@ -266,6 +281,8 @@ const alertStore = useAlertStore();
 if (route.params.id && typeof route.params.id === 'string') {
   alertStore.getAlert(route.params.id);
 }
+
+const userStore = useUserStore();
 
 const isCloseModalOpen = ref(false);
 const isMessageModalOpen = ref(false);
@@ -275,6 +292,7 @@ const isChatMessagesModalOpen = ref(false);
 const closeComment = ref('');
 const messageComment = ref('');
 const callComment = ref('');
+const selectedUserId = ref<number | null>(null);
 
 const closeAlert = async () => {
   await alertStore.close(alertStore.alert.id, closeComment.value);
@@ -283,7 +301,24 @@ const closeAlert = async () => {
 };
 
 const sendMessage = async () => {
+  await alertStore.sendMessage(alertStore.alert.id, messageComment.value);
   isMessageModalOpen.value = false;
+  await alertStore.getAlert(alertStore.alert.id.toString());
+};
+
+const showAssignModal = async () => {
+  await userStore.getAll();
+  isResponsibleModalOpen.value = true;
+};
+
+const assignResponsible = async () => {
+  if (selectedUserId.value) {
+    await alertStore.assignDoctor(alertStore.alert.id, selectedUserId.value);
+    isResponsibleModalOpen.value = false;
+    await alertStore.getAlert(alertStore.alert.id.toString());
+  } else {
+    isResponsibleModalOpen.value = false;
+  }
 };
 </script>
 
