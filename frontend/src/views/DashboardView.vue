@@ -16,26 +16,28 @@
           {
             prop: 'score',
             label: 'Score de l\'alerte',
-            width: '175px',
+            width: '15%',
           },
           {
             prop: 'patient',
             label: 'Patient',
-            width: '100px',
+            width: '20%',
           },
           {
             prop: 'createdAt',
             label: 'Ouverture de l\'alerte',
-            width: '200px',
+            width: '20%',
           },
           {
             prop: 'summary',
             label: 'Raisons de l\'alerte',
+            width: '40%',
           },
         ]"
+        :has-actions="true"
         :data="alertStore.unasignedAlerts"
         areRowsClickable
-        :empty-message="'Aucune alertes à traiter'"
+        :empty-message="'Aucune alerte à traiter'"
         @row-click="
           (row) => router.push({ name: 'alert', params: { id: row.id } })
         "
@@ -49,6 +51,9 @@
         <template #score="{ row }">
           <ScoreTag :score="row.score" />
         </template>
+        <template #actions>
+          <CustomButton text="Voir" />
+        </template>
       </SharedDatatable>
     </div>
   </div>
@@ -59,6 +64,7 @@ import ScoreTag from '@/components/ScoreTag.vue';
 import SharedDatatable from '@/components/Shared/SharedDatatable.vue';
 import { useRouter } from 'vue-router';
 import { useAlertStore } from '@/stores/alertStore';
+import CustomButton from '@/components/CustomButton.vue';
 
 const router = useRouter();
 const alertStore = useAlertStore();
