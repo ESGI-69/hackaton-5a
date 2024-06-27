@@ -136,8 +136,6 @@ import {
   ChatBubbleLeftEllipsisIcon,
   ChatBubbleLeftRightIcon,
   CheckCircleIcon,
-  ClockIcon,
-  CalendarDaysIcon,
   PhoneIcon,
 } from '@heroicons/vue/24/outline';
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';

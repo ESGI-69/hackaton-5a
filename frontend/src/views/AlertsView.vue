@@ -40,7 +40,7 @@
       <template #score="{ row }">
         <ScoreTag :score="row.score * 100" />
       </template>
-      <template #actions="{ row }">
+      <template #actions>
         <CustomButton text="Voir" />
       </template>
     </SharedDatatable>
