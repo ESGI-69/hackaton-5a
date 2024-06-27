@@ -81,5 +81,14 @@ export const useAlertStore = defineStore('alertStore', {
         this.isAssignLoading = false;
       }
     },
+
+    async call(alertId: number, message: string) {
+      this.isSendMessageLoading = true;
+      try {
+        await api.post(`/alerts/${alertId}/call`, { message });
+      } finally {
+        this.isSendMessageLoading = false;
+      }
+    },
   },
 });

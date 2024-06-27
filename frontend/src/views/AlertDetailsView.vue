@@ -199,21 +199,7 @@
     :isOpen="isCallModalOpen"
     title="Passer un appel"
     @close="isCallModalOpen = false"
-    @confirm="isCallModalOpen = false"
-    btn-text="Envoyer l'appel"
-  >
-    <textarea
-      rows="5"
-      placeholder="Saisissez le contenu énoncé à votre patient."
-      v-model="callComment"
-    />
-  </AlertModal>
-
-  <AlertModal
-    :isOpen="isCallModalOpen"
-    title="Passer un appel"
-    @close="isCallModalOpen = false"
-    @confirm="isCallModalOpen = false"
+    @confirm="callPatient"
     btn-text="Envoyer l'appel"
   >
     <textarea
@@ -298,12 +284,14 @@ const closeAlert = async () => {
   await alertStore.close(alertStore.alert.id, closeComment.value);
   isCloseModalOpen.value = false;
   await alertStore.getAlert(alertStore.alert.id.toString());
+  closeComment.value = '';
 };
 
 const sendMessage = async () => {
   await alertStore.sendMessage(alertStore.alert.id, messageComment.value);
   isMessageModalOpen.value = false;
   await alertStore.getAlert(alertStore.alert.id.toString());
+  messageComment.value = '';
 };
 
 const showAssignModal = async () => {
@@ -319,6 +307,14 @@ const assignResponsible = async () => {
   } else {
     isResponsibleModalOpen.value = false;
   }
+  selectedUserId.value = null;
+};
+
+const callPatient = async () => {
+  await alertStore.call(alertStore.alert.id, callComment.value);
+  callComment.value = '';
+  isCallModalOpen.value = false;
+  await alertStore.getAlert(alertStore.alert.id.toString());
 };
 </script>
 

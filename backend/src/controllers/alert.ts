@@ -154,4 +154,23 @@ export default {
       next(error);
     }
   },
+
+  call: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user)
+        throw new Error('You must be logged in to update an Alert');
+      const id = parseInt(req.params.id, 10);
+      await actionService.create(
+        {
+          type: 'CALL',
+          comment: req.body.message,
+          alertId: id,
+        },
+        req.user.id,
+      );
+      res.status(201).json({ message: 'Call sent' });
+    } catch (error) {
+      next(error);
+    }
+  },
 };
