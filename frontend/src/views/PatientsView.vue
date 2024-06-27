@@ -25,8 +25,8 @@
           width: '25%',
         },
         {
-          prop: 'conversations',
-          label: 'Nombre de conversations',
+          prop: 'alerts',
+          label: 'Alerte ouverte',
           width: '30%',
         },
       ]"
@@ -39,6 +39,9 @@
       </template>
       <template #conversations="{ row: { conversations } }">
         {{ conversations.length }}
+      </template>
+      <template #alerts="{ row: { alerts } }">
+        {{ alerts.length > 0 ? 'Oui' : 'Non' }}
       </template>
     </SharedDatatable>
   </div>

@@ -3,82 +3,108 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 const main = async () => {
-  const moniquePatient = await prisma.patient.create({
-    data: {
-      name: 'Monique',
-      phone: '0623456789',
-      birthDate: new Date('1990-01-01'),
-      gender: 'male',
-    },
-  });
-
   const didierPatient = await prisma.patient.create({
     data: {
-      name: 'Didier',
+      name: 'Didier Leblanc',
       phone: '0623456789',
       birthDate: new Date('1991-01-01'),
       gender: 'male',
     },
   });
 
-  const juliennePatient = await prisma.patient.create({
+  const JeanToutVasBienPatient = await prisma.patient.create({
     data: {
-      name: 'Julienne',
+      name: 'Jean Dujardin',
       phone: '0623456789',
-      birthDate: new Date('1992-01-01'),
+      birthDate: new Date('1993-01-01'),
+      gender: 'male',
+    },
+  });
+
+  const brigitteCaVaPasFortPatient = await prisma.patient.create({
+    data: {
+      name: 'Brigitte Dupont',
+      phone: '0623456789',
+      birthDate: new Date('1994-01-01'),
       gender: 'female',
     },
   });
 
   await prisma.conversation.create({
     data: {
-      patientId: juliennePatient.id,
-      messages: {
-        createMany: {
-          data: [
-            { text: 'Hello', origin: 'SYSTEM' },
-            { text: 'Hi', origin: 'PATIENT' },
-            { text: 'How are you?', origin: 'SYSTEM' },
-            { text: 'I am fine', origin: 'PATIENT' },
-            { text: 'This is a message from a doctor', origin: 'DOCTOR' },
-          ],
-        },
-      },
-    },
-  });
-
-  const didierConversation = await prisma.conversation.create({
-    data: {
       patientId: didierPatient.id,
       messages: {
         createMany: {
           data: [
-            { text: 'Hello', origin: 'SYSTEM' },
-            { text: 'Hi', origin: 'PATIENT' },
-            { text: 'How are you?', origin: 'SYSTEM' },
-            { text: 'Jai eu un gros accident de voiture', origin: 'PATIENT' },
-            { text: 'Expliquez nous ce quil se passe', origin: 'DOCTOR' },
             {
-              text: 'Je ne peux plus bouger, je ne sens plus mes jambes, il y a beaucoup de sang',
-              origin: 'PATIENT',
+              text: 'Bonjour, notez votre séjour de 1 à 4, TAPEZ UNIQUEMENT 1, 2, 3 ou 4',
+              origin: 'SYSTEM',
             },
+            { text: '3', origin: 'PATIENT' },
+            { text: 'Notation bien prise en compte', origin: 'SYSTEM' },
+            {
+              text: 'Comment est votre douleur sur une note de 1 à 10',
+              origin: 'SYSTEM',
+            },
+            // A faire pdt la demo : 'Entre 5 et 7 ca depends des moments'
           ],
         },
       },
     },
   });
 
-  const moniqueConversation = await prisma.conversation.create({
+  await prisma.conversation.create({
     data: {
-      patientId: moniquePatient.id,
+      patientId: JeanToutVasBienPatient.id,
       messages: {
         createMany: {
           data: [
-            { text: 'Hello', origin: 'SYSTEM' },
-            { text: 'Hi', origin: 'PATIENT' },
-            { text: 'How are you?', origin: 'SYSTEM' },
-            { text: 'I am fine', origin: 'PATIENT' },
-            { text: 'This is a message from a doctor', origin: 'DOCTOR' },
+            { text: 'Bonjour, notez votre séjour de 1 à 4', origin: 'SYSTEM' },
+            // a faire pdt la demo : 'ca cest bien passé, la bouffe etait bonne, les infirmier tres cool'
+          ],
+        },
+      },
+    },
+  });
+
+  // conversation closed for didier
+  await prisma.conversation.create({
+    data: {
+      patientId: didierPatient.id,
+      closedAt: new Date(),
+      messages: {
+        createMany: {
+          data: [
+            {
+              text: 'Comment est votre douleur sur une note de 1 à 10',
+              origin: 'SYSTEM',
+            },
+            { text: '5', origin: 'PATIENT' },
+            { text: 'Merci pour votre réponse', origin: 'SYSTEM' },
+          ],
+        },
+      },
+    },
+  });
+
+  const brigitteCaVaPasFortConversation = await prisma.conversation.create({
+    data: {
+      patientId: brigitteCaVaPasFortPatient.id,
+      messages: {
+        createMany: {
+          data: [
+            {
+              text: 'Comment cest passé vorte séjour à lhopital notez de 1 à 4',
+              origin: 'SYSTEM',
+            },
+            { text: 'Bjr', origin: 'PATIENT' },
+            {
+              text: 'Bien mais je nais pas beaucoup d appétit, je mange peu',
+              origin: 'PATIENT',
+            },
+            // TODO
+            { text: 'Pouvez vous me donner plus de détails', origin: 'DOCTOR' },
+            // A faire pdt la demo : 'je mange pas beaucoup, je nai pas dappetit'
           ],
         },
       },
@@ -93,62 +119,23 @@ const main = async () => {
     },
   });
 
+  //brigitteCaVaPasFort light alert created
   await prisma.alert.create({
     data: {
-      score: 2,
-      summary: "Monique s'est fait caca dessus à cause des laxatif au plomb",
-      reasons: [
-        'prise de laxatif au plomb',
-        'incontinence',
-        'caca dans le pantalon',
-      ],
-      patientId: moniquePatient.id,
-      conversationId: moniqueConversation.id,
-    },
-  });
-
-  await prisma.alert.create({
-    data: {
-      score: 5,
-      summary:
-        "Didier a eu un accident de voiture pendant qu'il échangeait des messages avec le docteur",
-      reasons: [
-        'accident de voiture',
-        'distraction pendant la conduite',
-        'échange de messages avec le docteur',
-      ],
-      patientId: didierPatient.id,
-      conversationId: didierConversation.id,
-      handledAt: new Date('2021-01-02'),
-      createdAt: new Date('2021-01-01'),
-      updatedAt: new Date('2021-01-02'),
+      score: 126,
+      summary: 'Brigitte Dupont mange peu et na pas dappetit',
+      reasons: ['peu dappetit', 'mange pas beaucoup'],
+      patientId: brigitteCaVaPasFortPatient.id,
+      conversationId: brigitteCaVaPasFortConversation.id,
       responsibleId: adminUser.id,
       actions: {
         createMany: {
           data: [
             {
-              type: 'CALL',
-              createdAt: new Date('2021-01-01T12:00:00'),
-              updatedAt: new Date('2021-01-02'),
-              userId: adminUser.id,
-            },
-            {
               type: 'MESSAGE',
-              createdAt: new Date('2021-01-01T13:00:00'),
-              updatedAt: new Date('2021-01-02'),
               userId: adminUser.id,
-            },
-            {
-              type: 'ASSIGNMENT',
-              createdAt: new Date('2021-01-01T14:00:00'),
-              updatedAt: new Date('2021-01-02'),
-              userId: adminUser.id,
-            },
-            {
-              type: 'CLOSED',
-              createdAt: new Date('2021-01-02'),
-              updatedAt: new Date('2021-01-02'),
-              userId: adminUser.id,
+              comment:
+                'envoi du message au patient : Pouvez vous me donner plus de détails',
             },
           ],
         },
