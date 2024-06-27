@@ -67,16 +67,28 @@ export default {
     return alert;
   },
 
-  update: async function (
-    id: number,
-    data: CreateAlterInput,
-    responsibleId?: number,
-  ) {
+  update: async function (id: number, data: Prisma.AlertUpdateInput) {
     const alert = await prisma.alert.update({
       where: { id },
+      include: {
+        patient: true,
+        responsible: true,
+        conversation: {
+          include: {
+            messages: true,
+          },
+        },
+        actions: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+          include: {
+            user: true,
+          },
+        },
+      },
       data: {
         ...data,
-        responsibleId,
       },
     });
 

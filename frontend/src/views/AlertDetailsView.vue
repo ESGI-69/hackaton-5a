@@ -135,6 +135,7 @@
         <AlertActionButton
           :icon="CheckCircleIcon"
           text="Clôturer l'alerte"
+          @click="close"
         />
       </div>
     </div>
@@ -153,14 +154,20 @@ import {
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
 import CustomButton from '@/components/CustomButton.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
+const router = useRouter();
 
 const alertStore = useAlertStore();
 if (route.params.id && typeof route.params.id === 'string') {
   alertStore.getAlert(route.params.id);
 }
+
+const close = async () => {
+  await alertStore.close(alertStore.alert.id);
+  router.push({ name: 'dashboard' });
+};
 </script>
 
 <style scoped>

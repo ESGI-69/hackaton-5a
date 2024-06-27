@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import alertService from '../service/alert';
+import conversationService from '../service/conversation';
 
 export default {
   getAssigned: async (req: Request, res: Response, next: NextFunction) => {
@@ -53,7 +54,36 @@ export default {
       if (!req.user)
         throw new Error('You must be logged in to update an Alert');
       const id = parseInt(req.params.id, 10);
-      const alert = await alertService.update(id, req.body, req.user.id);
+      const alert = await alertService.update(id, {
+        ...req.body,
+        responsible: { connect: { id: req.user.id } },
+      });
+      res.status(200).json(alert);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  close: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user)
+        throw new Error('You must be logged in to update an Alert');
+      const id = parseInt(req.params.id, 10);
+      const alert = await alertService.update(id, {
+        handledAt: new Date(),
+        actions: {
+          create: {
+            type: 'CLOSED',
+            comment: `${req.user.name} closed the alert`,
+            user: {
+              connect: { id: req.user.id },
+            },
+          },
+        },
+      });
+      await conversationService.update(alert.conversation.id, {
+        closedAt: new Date(),
+      });
       res.status(200).json(alert);
     } catch (error) {
       next(error);
