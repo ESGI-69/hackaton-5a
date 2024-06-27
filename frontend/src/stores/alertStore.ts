@@ -51,10 +51,10 @@ export const useAlertStore = defineStore('alertStore', {
       }
     },
 
-    async close(alertId: number) {
+    async close(alertId: number, message: string) {
       this.isCloseLoading = true;
       try {
-        await api.post(`/alerts/${alertId}/close`);
+        await api.post(`/alerts/${alertId}/close`, { message });
       } finally {
         this.isCloseLoading = false;
       }

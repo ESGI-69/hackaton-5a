@@ -137,14 +137,17 @@
         <AlertActionButton
           :icon="ChatBubbleLeftEllipsisIcon"
           text="Envoyer un SMS"
+          @click="isMessageModalOpen = true"
         />
         <AlertActionButton
           :icon="PhoneIcon"
           text="Appel"
+          @click="isCallModalOpen = true"
         />
         <AlertActionButton
           :icon="ChatBubbleLeftRightIcon"
           text="Voir les messages"
+          @click="isChatMessagesModalOpen = true"
         />
         <AlertActionButton
           v-if="alertStore.alert.responsible"
@@ -155,11 +158,87 @@
           v-if="!alertStore.alert.handledAt"
           :icon="CheckCircleIcon"
           text="Clôturer l'alerte"
-          @click="close"
+          @click="isCloseModalOpen = true"
         />
       </div>
     </div>
   </div>
+
+  <AlertModal
+    :isOpen="isCloseModalOpen"
+    title="Fermer l'alerte"
+    @close="isCloseModalOpen = false"
+    @confirm="closeAlert"
+    btn-text="Fermer l'alerte"
+  >
+    <p>Voulez-vous ajouter un message résumant la résolution de l'alerte ?</p>
+    <textarea
+      rows="5"
+      placeholder="Commentaire"
+      v-model="closeComment"
+    />
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isMessageModalOpen"
+    title="Envoyer un SMS"
+    @close="isMessageModalOpen = false"
+    @confirm="sendMessage"
+    btn-text="Envoyer le message"
+  >
+    <textarea
+      rows="5"
+      placeholder="Saisissez le contenu de votre message."
+      v-model="messageComment"
+    />
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isCallModalOpen"
+    title="Passer un appel"
+    @close="isCallModalOpen = false"
+    @confirm="isCallModalOpen = false"
+    btn-text="Envoyer l'appel"
+  >
+    <textarea
+      rows="5"
+      placeholder="Saisissez le contenu énoncé à votre patient."
+      v-model="callComment"
+    />
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isCallModalOpen"
+    title="Passer un appel"
+    @close="isCallModalOpen = false"
+    @confirm="isCallModalOpen = false"
+    btn-text="Envoyer l'appel"
+  >
+    <textarea
+      rows="5"
+      placeholder="Saisissez le contenu énoncé à votre patient."
+      v-model="callComment"
+    />
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isResponsibleModalOpen"
+    title="Assigner un responsable"
+    @close="isResponsibleModalOpen = false"
+    @confirm="isResponsibleModalOpen = false"
+    btn-text="Confirmer"
+  >
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isChatMessagesModalOpen"
+    title="Conversation avec le patient"
+    @close="isChatMessagesModalOpen = false"
+    @confirm="isChatMessagesModalOpen = false"
+    btn-text="Fermer"
+  >
+    <ChatMessages :messages="alertStore.alert.conversation.messages" />
+  </AlertModal>
 </template>
 
 <script setup lang="ts">
@@ -176,7 +255,10 @@ import {
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
 import CustomButton from '@/components/CustomButton.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import AlertModal from '@/components/Alert/AlertModal.vue';
+import ChatMessages from '@/components/ChatMessages.vue';
+import { ref } from 'vue';
 
 const route = useRoute();
 
@@ -185,9 +267,23 @@ if (route.params.id && typeof route.params.id === 'string') {
   alertStore.getAlert(route.params.id);
 }
 
-const close = async () => {
-  await alertStore.close(alertStore.alert.id);
+const isCloseModalOpen = ref(false);
+const isMessageModalOpen = ref(false);
+const isResponsibleModalOpen = ref(false);
+const isCallModalOpen = ref(false);
+const isChatMessagesModalOpen = ref(false);
+const closeComment = ref('');
+const messageComment = ref('');
+const callComment = ref('');
+
+const closeAlert = async () => {
+  await alertStore.close(alertStore.alert.id, closeComment.value);
+  isCloseModalOpen.value = false;
   await alertStore.getAlert(alertStore.alert.id.toString());
+};
+
+const sendMessage = async () => {
+  isMessageModalOpen.value = false;
 };
 </script>
 
