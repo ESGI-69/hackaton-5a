@@ -23,6 +23,7 @@
       type="text"
       v-model="newMessage"
       placeholder="Entre votre message..."
+      @keypress.enter="sendMessage"
     />
     <button
       @click="sendMessage"

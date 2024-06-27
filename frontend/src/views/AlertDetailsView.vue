@@ -41,6 +41,14 @@
               <h2 class="pb-4 text-contrast-500 text-lg font-bold">
                 Raison de l'alerte
               </h2>
+              <!-- <ul class="mb-2">
+                <li
+                  v-for="reason in alertStore.alert.reasons"
+                  :key="reason"
+                >
+                  {{ reason }}
+                </li>
+              </ul> -->
               <p class="text-sm text-grey-300">
                 {{ alertStore.alert.summary }}
               </p>
@@ -147,6 +155,7 @@
           text="Changer de responsable"
         />
         <AlertActionButton
+          v-if="!alertStore.alert.handledAt"
           :icon="CheckCircleIcon"
           text="Clôturer l'alerte"
           @click="isCloseModalOpen = true"
@@ -252,7 +261,6 @@ import ChatMessages from '@/components/ChatMessages.vue';
 import { ref } from 'vue';
 
 const route = useRoute();
-const router = useRouter();
 
 const alertStore = useAlertStore();
 if (route.params.id && typeof route.params.id === 'string') {
@@ -271,7 +279,7 @@ const callComment = ref('');
 const closeAlert = async () => {
   await alertStore.close(alertStore.alert.id, closeComment.value);
   isCloseModalOpen.value = false;
-  router.push({ name: 'dashboard' });
+  await alertStore.getAlert(alertStore.alert.id.toString());
 };
 
 const sendMessage = async () => {

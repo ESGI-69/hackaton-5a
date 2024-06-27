@@ -29,6 +29,11 @@
             width: '20%',
           },
           {
+            prop: 'responsible',
+            label: 'Responsable',
+            width: '10%',
+          },
+          {
             prop: 'summary',
             label: 'Raisons de l\'alerte',
             width: '40%',
@@ -50,6 +55,9 @@
         </template>
         <template #score="{ row }">
           <ScoreTag :score="row.score" />
+        </template>
+        <template #responsible="{ row }">
+          {{ row.responsible?.name || 'Non assignée' }}
         </template>
         <template #actions>
           <CustomButton text="Voir" />

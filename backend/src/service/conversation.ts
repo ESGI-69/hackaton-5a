@@ -22,4 +22,14 @@ export default {
 
     return conversation;
   },
+
+  postMessage: async function (message: Prisma.MessagesCreateInput) {
+    const newMessage = await prisma.messages.create({
+      data: {
+        ...message,
+      },
+    });
+
+    return newMessage;
+  },
 };
