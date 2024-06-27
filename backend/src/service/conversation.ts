@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from '../db';
 
 export default {
@@ -8,6 +9,17 @@ export default {
         messages: true,
       },
     });
+    return conversation;
+  },
+
+  update: async function (id: number, data: Prisma.ConversationUpdateInput) {
+    const conversation = await prisma.conversation.update({
+      where: { id },
+      data: {
+        ...data,
+      },
+    });
+
     return conversation;
   },
 };

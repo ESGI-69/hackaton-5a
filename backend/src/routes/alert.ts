@@ -5,6 +5,7 @@ const router = Router();
 
 router.get('/assigned', alertController.getAssigned);
 router.get('/unasigned', alertController.getUnasigned);
+router.post('/:id/close', alertController.close);
 router.get('/:id', alertController.getById);
 router.patch('/:id', alertController.patch);
 

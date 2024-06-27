@@ -14,6 +14,8 @@ export const useAlertStore = defineStore('alertStore', {
 
     isAlertLoading: false,
     alert: {} as Alert,
+
+    isCloseLoading: false,
   }),
 
   actions: {
@@ -46,6 +48,15 @@ export const useAlertStore = defineStore('alertStore', {
         this.alert = data;
       } finally {
         this.isAlertLoading = false;
+      }
+    },
+
+    async close(alertId: number) {
+      this.isCloseLoading = true;
+      try {
+        await api.post(`/alerts/${alertId}/close`);
+      } finally {
+        this.isCloseLoading = false;
       }
     },
   },
