@@ -275,7 +275,6 @@ const closeAlert = async () => {
 };
 
 const sendMessage = async () => {
-  console.warn(messageComment.value);
   isMessageModalOpen.value = false;
 };
 </script>
