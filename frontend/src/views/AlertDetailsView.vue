@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div class="p-4 sm:px-8 flex flex-grow h-full overflow-y-hidden">
     <div class="w-9/12 pr-12 flex flex-col overflow-y-auto">
       <div class="flex">
@@ -146,11 +146,26 @@
         <AlertActionButton
           :icon="CheckCircleIcon"
           text="Clôturer l'alerte"
-          @click="close"
+          @click="isCloseModalOpen = true"
         />
       </div>
     </div>
   </div>
+
+  <AlertModal
+    :isOpen="isCloseModalOpen"
+    :title="modalTitle"
+    @close="closeModal"
+    @confirm="close"
+    btn-text="Fermer l/'alerte"
+  >
+    <p>Voulez-vous ajouter un message résumant la résolution de l'alerte ?</p>
+    <textarea
+      rows="5"
+      placeholder="Commentaire"
+      v-model="closeComment"
+    />
+  </AlertModal>
 </template>
 
 <script setup lang="ts">
@@ -169,6 +184,8 @@ import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
 import CustomButton from '@/components/CustomButton.vue';
 import { useRoute, useRouter } from 'vue-router';
+import AlertModal from '@/components/Alert/AlertModal.vue';
+import { ref } from 'vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -178,8 +195,27 @@ if (route.params.id && typeof route.params.id === 'string') {
   alertStore.getAlert(route.params.id);
 }
 
+const isCloseModalOpen = ref(false);
+const modalTitle = ref('');
+const modalContent = ref('');
+const closeComment = ref('');
+
+const openModal = (
+  title: string,
+  content: string,
+  onSubmit: (message: string) => void,
+) => {
+  modalTitle.value = title;
+  modalContent.value = content;
+  isCloseModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isCloseModalOpen.value = false;
+};
+
 const close = async () => {
-  await alertStore.close(alertStore.alert.id);
+  await alertStore.close(alertStore.alert.id, closeComment.value);
   router.push({ name: 'dashboard' });
 };
 </script>

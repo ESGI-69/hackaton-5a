@@ -74,7 +74,7 @@ export default {
         actions: {
           create: {
             type: 'CLOSED',
-            comment: `${req.user.name} closed the alert`,
+            comment: `${req.user.name} closed the alert with message: ${req.body.message}`,
             user: {
               connect: { id: req.user.id },
             },
