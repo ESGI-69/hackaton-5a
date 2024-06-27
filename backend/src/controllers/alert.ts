@@ -114,7 +114,7 @@ export default {
       });
       await actionService.create(
         {
-          comment: 'Doctor sent a message : ' + message.text,
+          comment: `${req.user.name} a envoyé le message suivant : ${message.text}`,
           alertId: alert.id,
           type: 'MESSAGE',
         },

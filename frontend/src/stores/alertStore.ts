@@ -16,6 +16,8 @@ export const useAlertStore = defineStore('alertStore', {
     alert: {} as Alert,
 
     isCloseLoading: false,
+
+    isSendMessageLoading: false,
   }),
 
   actions: {
@@ -57,6 +59,15 @@ export const useAlertStore = defineStore('alertStore', {
         await api.post(`/alerts/${alertId}/close`, { message });
       } finally {
         this.isCloseLoading = false;
+      }
+    },
+
+    async sendMessage(alertId: number, message: string) {
+      this.isSendMessageLoading = true;
+      try {
+        await api.post(`/alerts/${alertId}/message`, { message });
+      } finally {
+        this.isSendMessageLoading = false;
       }
     },
   },

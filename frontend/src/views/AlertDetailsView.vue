@@ -283,7 +283,9 @@ const closeAlert = async () => {
 };
 
 const sendMessage = async () => {
+  await alertStore.sendMessage(alertStore.alert.id, messageComment.value);
   isMessageModalOpen.value = false;
+  await alertStore.getAlert(alertStore.alert.id.toString());
 };
 </script>
 
