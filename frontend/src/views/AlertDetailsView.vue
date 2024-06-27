@@ -139,6 +139,7 @@
         <AlertActionButton
           :icon="ChatBubbleLeftRightIcon"
           text="Voir les messages"
+          @click="isChatMessagesModalOpen = true"
         />
         <AlertActionButton
           v-if="alertStore.alert.responsible"
@@ -196,6 +197,39 @@
       v-model="callComment"
     />
   </AlertModal>
+
+  <AlertModal
+    :isOpen="isCallModalOpen"
+    title="Passer un appel"
+    @close="isCallModalOpen = false"
+    @confirm="isCallModalOpen = false"
+    btn-text="Envoyer l'appel"
+  >
+    <textarea
+      rows="5"
+      placeholder="Saisissez le contenu énoncé à votre patient."
+      v-model="callComment"
+    />
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isResponsibleModalOpen"
+    title="Assigner un responsable"
+    @close="isResponsibleModalOpen = false"
+    @confirm="isResponsibleModalOpen = false"
+    btn-text="Confirmer"
+  >
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isChatMessagesModalOpen"
+    title="Conversation avec le patient"
+    @close="isChatMessagesModalOpen = false"
+    @confirm="isChatMessagesModalOpen = false"
+    btn-text="Fermer"
+  >
+    <ChatMessages :messages="alertStore.alert.conversation.messages" />
+  </AlertModal>
 </template>
 
 <script setup lang="ts">
@@ -214,6 +248,7 @@ import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
 import CustomButton from '@/components/CustomButton.vue';
 import { useRoute, useRouter } from 'vue-router';
 import AlertModal from '@/components/Alert/AlertModal.vue';
+import ChatMessages from '@/components/ChatMessages.vue';
 import { ref } from 'vue';
 
 const route = useRoute();
@@ -226,7 +261,9 @@ if (route.params.id && typeof route.params.id === 'string') {
 
 const isCloseModalOpen = ref(false);
 const isMessageModalOpen = ref(false);
+const isResponsibleModalOpen = ref(false);
 const isCallModalOpen = ref(false);
+const isChatMessagesModalOpen = ref(false);
 const closeComment = ref('');
 const messageComment = ref('');
 const callComment = ref('');
