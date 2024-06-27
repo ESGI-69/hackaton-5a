@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
   <div class="p-4 sm:px-8 flex flex-grow h-full overflow-y-hidden">
     <div class="w-9/12 pr-12 flex flex-col overflow-y-auto">
       <div class="flex">
@@ -178,7 +178,6 @@ import {
   PhoneIcon,
   ClockIcon,
   CalendarDaysIcon,
-  UsersIcon,
 } from '@heroicons/vue/24/outline';
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
