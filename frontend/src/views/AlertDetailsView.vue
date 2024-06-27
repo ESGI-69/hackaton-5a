@@ -41,6 +41,14 @@
               <h2 class="pb-4 text-contrast-500 text-lg font-bold">
                 Raison de l'alerte
               </h2>
+              <!-- <ul class="mb-2">
+                <li
+                  v-for="reason in alertStore.alert.reasons"
+                  :key="reason"
+                >
+                  {{ reason }}
+                </li>
+              </ul> -->
               <p class="text-sm text-grey-300">
                 {{ alertStore.alert.summary }}
               </p>
@@ -144,6 +152,7 @@
           text="Changer de responsable"
         />
         <AlertActionButton
+          v-if="!alertStore.alert.handledAt"
           :icon="CheckCircleIcon"
           text="Clôturer l'alerte"
           @click="close"
@@ -163,15 +172,13 @@ import {
   PhoneIcon,
   ClockIcon,
   CalendarDaysIcon,
-  UsersIcon,
 } from '@heroicons/vue/24/outline';
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
 import CustomButton from '@/components/CustomButton.vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const router = useRouter();
 
 const alertStore = useAlertStore();
 if (route.params.id && typeof route.params.id === 'string') {
@@ -180,7 +187,7 @@ if (route.params.id && typeof route.params.id === 'string') {
 
 const close = async () => {
   await alertStore.close(alertStore.alert.id);
-  router.push({ name: 'dashboard' });
+  await alertStore.getAlert(alertStore.alert.id.toString());
 };
 </script>
 

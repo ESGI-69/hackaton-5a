@@ -46,7 +46,7 @@ const main = async () => {
               text: 'Comment est votre douleur sur une note de 1 à 10',
               origin: 'SYSTEM',
             },
-            // A faire pdt la demo : 'Ca depend entre 5 et 7 ca depends des moments'
+            // A faire pdt la demo : 'Entre 5 et 7 ca depends des moments'
           ],
         },
       },
@@ -61,6 +61,26 @@ const main = async () => {
           data: [
             { text: 'Bonjour, notez votre séjour de 1 à 4', origin: 'SYSTEM' },
             // a faire pdt la demo : 'ca cest bien passé, la bouffe etait bonne, les infirmier tres cool'
+          ],
+        },
+      },
+    },
+  });
+
+  // conversation closed for didier
+  await prisma.conversation.create({
+    data: {
+      patientId: didierPatient.id,
+      closedAt: new Date(),
+      messages: {
+        createMany: {
+          data: [
+            {
+              text: 'Comment est votre douleur sur une note de 1 à 10',
+              origin: 'SYSTEM',
+            },
+            { text: '5', origin: 'PATIENT' },
+            { text: 'Merci pour votre réponse', origin: 'SYSTEM' },
           ],
         },
       },
@@ -82,6 +102,7 @@ const main = async () => {
               text: 'Bien mais je nais pas beaucoup d appétit, je mange peu',
               origin: 'PATIENT',
             },
+            // TODO
             { text: 'Pouvez vous me donner plus de détails', origin: 'DOCTOR' },
             // A faire pdt la demo : 'je mange pas beaucoup, je nai pas dappetit'
           ],

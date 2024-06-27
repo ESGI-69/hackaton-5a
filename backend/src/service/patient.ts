@@ -32,6 +32,7 @@ export default {
   getAll: async function () {
     const patients = await prisma.patient.findMany({
       include: {
+        alerts: true,
         conversations: {
           where: {
             closedAt: null,
