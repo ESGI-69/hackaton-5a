@@ -3,11 +3,10 @@
     <div class="mx-auto px-4 sm:px-8 flex justify-between items-center">
       <div class="text-gray-500 text-xl logo">
         <img
-          src="../assets/logo-purple.png"
+          src="../assets/logo-purple-full.png"
           alt="MediFlow"
           class="h-8"
         />
-        MediFlow
       </div>
       <div class="hidden md:flex">
         <NavbarItem
