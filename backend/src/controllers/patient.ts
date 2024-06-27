@@ -52,6 +52,11 @@ export default {
         summary: aiGeneratedAlertChat.summary,
       };
 
+      if (aiGeneratedAlertChat.score < 100) {
+        res.status(201).json(message);
+        return;
+      }
+
       const alert = await alertService.checkConversationHasAlert(
         message.conversationId,
       );
