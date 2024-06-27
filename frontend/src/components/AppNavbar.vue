@@ -36,6 +36,7 @@ const toggleMenu = () => {
 };
 
 const menuItems = [
+  { name: 'TEST MESSAGE SEND', routeName: 'test-message' },
   { name: 'Dashboard', routeName: 'dashboard' },
   { name: 'Alertes', routeName: 'alerts' },
   // { name: 'Rendez-vous', routeName: 'appointments' },

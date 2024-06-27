@@ -1,3 +1,4 @@
+import type { User } from '@/interfaces/api';
 import api from '@/plugins/axios';
 import { defineStore } from 'pinia';
 
@@ -5,6 +6,9 @@ export const useUserStore = defineStore('userStore', {
   state: () => ({
     isRegisterLoading: false,
     createdUser: {} as { username: string; password: string },
+
+    areUsersLoading: false,
+    users: [] as User[],
   }),
 
   actions: {
@@ -24,6 +28,18 @@ export const useUserStore = defineStore('userStore', {
         this.createdUser = data;
       } finally {
         this.isRegisterLoading = false;
+      }
+    },
+
+    async getAll() {
+      this.areUsersLoading = true;
+      try {
+        const {
+          data: { results },
+        } = await api.get('/users/');
+        this.users = results;
+      } finally {
+        this.areUsersLoading = false;
       }
     },
   },

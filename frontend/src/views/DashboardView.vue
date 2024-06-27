@@ -49,7 +49,7 @@
           {{ new Date(row.createdAt).toLocaleDateString() }}
         </template>
         <template #score="{ row }">
-          <ScoreTag :score="row.score * 100" />
+          <ScoreTag :score="row.score" />
         </template>
         <template #actions>
           <CustomButton text="Voir" />
@@ -136,6 +136,7 @@ alertStore.getUnasignedAlerts();
   0% {
     transform: translate(-50%, -50%) scale(0.33);
   }
+
   80%,
   100% {
     opacity: 0;
@@ -146,9 +147,11 @@ alertStore.getUnasignedAlerts();
   0% {
     transform: scale(0.8);
   }
+
   50% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0.8);
   }

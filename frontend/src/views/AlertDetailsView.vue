@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4 sm:px-8 flex flex-grow">
-    <div class="w-9/12 pr-12 flex flex-col">
+  <div class="p-4 sm:px-8 flex flex-grow h-full overflow-y-hidden">
+    <div class="w-9/12 pr-12 flex flex-col overflow-y-auto">
       <div class="flex">
         <div class="w-3/12">
           <div class="pulsating-circle-container">
@@ -8,7 +8,7 @@
               <div class="circle-text">
                 <div class="font-bold">Score</div>
                 <div class="text-4xl font-bold">
-                  {{ alertStore.alert.score * 100 }}
+                  {{ alertStore.alert.score }}
                 </div>
               </div>
             </div>
@@ -17,21 +17,33 @@
         <div class="w-9/12">
           <div class="card p-0 flex">
             <div class="p-4 w-6/12 border border-grey-100">
-              <h2 class="pb-2 text-contrast-500 text-lg font-bold">
+              <h2 class="pb-4 text-contrast-500 text-lg font-bold">
                 Ouverture de l'alerte
               </h2>
-              <p class="text-grey-500">
-                {{ new Date(alertStore.alert.createdAt).toLocaleDateString() }}
-              </p>
-              <p class="text-grey-500">
-                {{ new Date(alertStore.alert.createdAt).toLocaleTimeString() }}
-              </p>
+              <div class="flex items-center mb-2">
+                <CalendarDaysIcon class="w-5 h-5 mr-2 text-secondary-500" />
+                <p class="text-grey-300">
+                  {{
+                    new Date(alertStore.alert.createdAt).toLocaleDateString()
+                  }}
+                </p>
+              </div>
+              <div class="flex items-center">
+                <ClockIcon class="w-5 h-5 mr-2 text-secondary-500" />
+                <p class="text-grey-300">
+                  {{
+                    new Date(alertStore.alert.createdAt).toLocaleTimeString()
+                  }}
+                </p>
+              </div>
             </div>
             <div class="p-4 w-6/12 max-h-1/5 overflow-y-auto">
-              <h2 class="pb-2 text-contrast-500 text-lg font-bold">
+              <h2 class="pb-4 text-contrast-500 text-lg font-bold">
                 Raisons de l'alerte
               </h2>
-              <p>{{ alertStore.alert.summary }}</p>
+              <p class="text-sm text-grey-300">
+                {{ alertStore.alert.summary }}
+              </p>
             </div>
           </div>
         </div>
@@ -58,10 +70,10 @@
     </div>
     <div class="w-3/12 flex flex-col justify-between">
       <div class="card text-center">
-        <p class="text-contrast-500 text-lg font-bold">
+        <p class="text-contrast-500 text-lg font-bold mb-4">
           {{ alertStore.alert.patient?.name }}
         </p>
-        <div class="flex justify-evenly">
+        <div class="flex justify-evenly text-grey-300">
           <p>{{ alertStore.alert.patient?.gender }}</p>
           <p>
             {{
@@ -216,6 +228,7 @@ if (route.params.id && typeof route.params.id === 'string') {
   0% {
     transform: translate(-50%, -50%) scale(0.33);
   }
+
   80%,
   100% {
     opacity: 0;
@@ -226,9 +239,11 @@ if (route.params.id && typeof route.params.id === 'string') {
   0% {
     transform: scale(0.8);
   }
+
   50% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0.8);
   }
