@@ -18,6 +18,8 @@ export const useAlertStore = defineStore('alertStore', {
     isCloseLoading: false,
 
     isSendMessageLoading: false,
+
+    isAssignLoading: false,
   }),
 
   actions: {
@@ -68,6 +70,15 @@ export const useAlertStore = defineStore('alertStore', {
         await api.post(`/alerts/${alertId}/message`, { message });
       } finally {
         this.isSendMessageLoading = false;
+      }
+    },
+
+    async assignDoctor(alertId: number, userId: number) {
+      this.isAssignLoading = true;
+      try {
+        await api.post(`/alerts/${alertId}/assign`, { userId });
+      } finally {
+        this.isAssignLoading = false;
       }
     },
   },

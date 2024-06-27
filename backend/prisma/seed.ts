@@ -119,6 +119,22 @@ const main = async () => {
     },
   });
 
+  await prisma.user.create({
+    data: {
+      password: await bcrypt.hash('admin', bcrypt.genSaltSync(10)),
+      username: 'doctor1',
+      name: 'Doctor n1',
+    },
+  });
+
+  await prisma.user.create({
+    data: {
+      password: await bcrypt.hash('admin', bcrypt.genSaltSync(10)),
+      username: 'doctor2',
+      name: 'Doctor n2',
+    },
+  });
+
   //brigitteCaVaPasFort light alert created
   await prisma.alert.create({
     data: {
