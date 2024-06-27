@@ -9,5 +9,6 @@ router.post('/:id/close', alertController.close);
 router.get('/:id', alertController.getById);
 router.patch('/:id', alertController.patch);
 router.post('/:id/message', alertController.sendDoctorMessage);
+router.post('/:id/assign', alertController.assignDoctor);
 
 export default router;

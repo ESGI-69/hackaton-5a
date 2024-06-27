@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import actionService from '../service/action';
 import alertService from '../service/alert';
 import conversationService from '../service/conversation';
+import userService from '../service/user';
 
 export default {
   getAssigned: async (req: Request, res: Response, next: NextFunction) => {
@@ -120,6 +121,35 @@ export default {
         req.user.id,
       );
       res.status(201).json(message);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  assignDoctor: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user)
+        throw new Error('You must be logged in to update an Alert');
+      const id = parseInt(req.params.id, 10);
+      const alert = await alertService.getById(id);
+
+      if (!alert) throw new Error('Alert not found');
+
+      const user = await userService.getById(parseInt(req.body.userId));
+
+      await alertService.update(alert.id, {
+        responsible: { connect: { id: user?.id } },
+      });
+
+      const action = await actionService.create(
+        {
+          comment: `Docteur ${user?.name} à été assigné à l'alerte`,
+          alertId: alert.id,
+          type: 'ASSIGNMENT',
+        },
+        req.user.id,
+      );
+      res.status(201).json(action);
     } catch (error) {
       next(error);
     }
