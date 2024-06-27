@@ -1,5 +1,8 @@
 <template>
   <div class="mx-auto mt-8 px-4 sm:px-8">
+    <h1 class="text-2xl font-bold mb-8 mx-auto w-fit text-grey-500">
+      Liste des alertes
+    </h1>
     <SharedDatatable
       :columns="[
         {
