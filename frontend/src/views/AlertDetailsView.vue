@@ -129,10 +129,12 @@
         <AlertActionButton
           :icon="ChatBubbleLeftEllipsisIcon"
           text="Envoyer un SMS"
+          @click="isMessageModalOpen = true"
         />
         <AlertActionButton
           :icon="PhoneIcon"
           text="Appel"
+          @click="isCallModalOpen = true"
         />
         <AlertActionButton
           :icon="ChatBubbleLeftRightIcon"
@@ -154,16 +156,44 @@
 
   <AlertModal
     :isOpen="isCloseModalOpen"
-    :title="modalTitle"
-    @close="closeModal"
-    @confirm="close"
-    btn-text="Fermer l/'alerte"
+    title="Fermer l'alerte"
+    @close="isCloseModalOpen = false"
+    @confirm="closeAlert"
+    btn-text="Fermer l'alerte"
   >
     <p>Voulez-vous ajouter un message résumant la résolution de l'alerte ?</p>
     <textarea
       rows="5"
       placeholder="Commentaire"
       v-model="closeComment"
+    />
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isMessageModalOpen"
+    title="Envoyer un SMS"
+    @close="isMessageModalOpen = false"
+    @confirm="sendMessage"
+    btn-text="Envoyer le message"
+  >
+    <textarea
+      rows="5"
+      placeholder="Saisissez le contenu de votre message."
+      v-model="messageComment"
+    />
+  </AlertModal>
+
+  <AlertModal
+    :isOpen="isCallModalOpen"
+    title="Passer un appel"
+    @close="isCallModalOpen = false"
+    @confirm="isCallModalOpen = false"
+    btn-text="Envoyer l'appel"
+  >
+    <textarea
+      rows="5"
+      placeholder="Saisissez le contenu énoncé à votre patient."
+      v-model="callComment"
     />
   </AlertModal>
 </template>
@@ -195,27 +225,21 @@ if (route.params.id && typeof route.params.id === 'string') {
 }
 
 const isCloseModalOpen = ref(false);
-const modalTitle = ref('');
-const modalContent = ref('');
+const isMessageModalOpen = ref(false);
+const isCallModalOpen = ref(false);
 const closeComment = ref('');
+const messageComment = ref('');
+const callComment = ref('');
 
-const openModal = (
-  title: string,
-  content: string,
-  onSubmit: (message: string) => void,
-) => {
-  modalTitle.value = title;
-  modalContent.value = content;
-  isCloseModalOpen.value = true;
-};
-
-const closeModal = () => {
-  isCloseModalOpen.value = false;
-};
-
-const close = async () => {
+const closeAlert = async () => {
   await alertStore.close(alertStore.alert.id, closeComment.value);
+  isCloseModalOpen.value = false;
   router.push({ name: 'dashboard' });
+};
+
+const sendMessage = async () => {
+  console.warn(messageComment.value);
+  isMessageModalOpen.value = false;
 };
 </script>
 
