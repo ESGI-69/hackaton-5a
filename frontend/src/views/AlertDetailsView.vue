@@ -39,7 +39,7 @@
             </div>
             <div class="p-4 w-6/12 max-h-1/5 overflow-y-auto">
               <h2 class="pb-4 text-contrast-500 text-lg font-bold">
-                Raisons de l'alerte
+                Raison de l'alerte
               </h2>
               <p class="text-sm text-grey-300">
                 {{ alertStore.alert.summary }}
@@ -73,19 +73,24 @@
         <p class="text-contrast-500 text-lg font-bold mb-4">
           {{ alertStore.alert.patient?.name }}
         </p>
-        <div class="flex justify-evenly text-grey-300">
-          <p>{{ alertStore.alert.patient?.gender }}</p>
+        <div class="flex justify-around text-grey-300">
+          <p>
+            {{ alertStore.alert.patient?.gender == 'male' ? 'Homme' : 'Femme' }}
+          </p>
           <p>
             {{
               new Date(alertStore.alert.patient?.birthDate).toLocaleDateString()
             }}
           </p>
+          <p>{{ alertStore.alert.patient?.phone }}</p>
         </div>
-        <p>{{ alertStore.alert.patient?.phone }}</p>
       </div>
       <div class="card">
         <div class="flex items-center">
-          <p class="text-contrast-500 text-lg font-bold">Responsable</p>
+          <div class="bg-secondary-50 rounded-full mr-6">
+            <UserIcon class="w-8 h-8 m-2 text-secondary-500" />
+          </div>
+          <p class="text-contrast-500 pb-4 text-lg font-bold">Responsable</p>
         </div>
         <div
           class="flex pb-4"
@@ -101,7 +106,13 @@
             }}
           </p>
         </div>
-        <div v-else>
+        <div
+          class="flex pb-4 items-center"
+          v-else
+        >
+          <div class="bg-white rounded-full mr-6">
+            <UserIcon class="w-8 h-4 m-2 text-white" />
+          </div>
           <p class="text-grey-300">Aucun responsable</p>
         </div>
         <CustomButton
@@ -150,6 +161,9 @@ import {
   ChatBubbleLeftRightIcon,
   CheckCircleIcon,
   PhoneIcon,
+  ClockIcon,
+  CalendarDaysIcon,
+  UsersIcon,
 } from '@heroicons/vue/24/outline';
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';

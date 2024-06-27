@@ -1,22 +1,25 @@
 <template>
-  <div class="user-view">
-    <h1>Professionnels</h1>
+  <div class="mx-auto mt-8 px-4 sm:px-8">
     <SharedDatatable
+      id="table"
       v-if="!userStore.areUsersLoading"
       :data="userStore.users"
       :columns="[
         {
           prop: 'name',
           label: 'Nom',
-          width: '25%',
+          width: '40%',
         },
         {
           prop: 'createdAt',
           label: 'Date d\'inscription',
-          width: '75%',
+          width: '60%',
         },
       ]"
     >
+      <template #createdAt="{ row: { createdAt } }">
+        {{ new Date(createdAt).toLocaleDateString() }}
+      </template>
     </SharedDatatable>
   </div>
 </template>
@@ -27,3 +30,9 @@ import { useUserStore } from '@/stores/userStore';
 const userStore = useUserStore();
 userStore.getAll();
 </script>
+
+<style scoped>
+#table {
+  min-width: inherit !important;
+}
+</style>

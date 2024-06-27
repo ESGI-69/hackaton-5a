@@ -1,6 +1,5 @@
 <template>
-  <div class="patient-view">
-    <h1>Patients</h1>
+  <div class="mx-auto mt-8 px-4 sm:px-8">
     <SharedDatatable
       v-if="!patientStore.arePatientsLoading"
       :data="patientStore.patients"
@@ -18,7 +17,7 @@
         {
           prop: 'birthDate',
           label: 'Date de naissance',
-          width: '25%',
+          width: '20%',
         },
         {
           prop: 'gender',
@@ -28,12 +27,15 @@
         {
           prop: 'conversations',
           label: 'Nombre de conversations',
-          width: '25%',
+          width: '30%',
         },
       ]"
     >
       <template #birthDate="{ row: { birthDate } }">
         {{ new Date(birthDate).toLocaleDateString() }}
+      </template>
+      <template #gender="{ row: { gender } }">
+        {{ gender === 'male' ? 'Homme' : 'Femme' }}
       </template>
       <template #conversations="{ row: { conversations } }">
         {{ conversations.length }}
