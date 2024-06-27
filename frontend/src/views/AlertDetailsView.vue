@@ -39,7 +39,7 @@
             </div>
             <div class="p-4 w-6/12 max-h-1/5 overflow-y-auto">
               <h2 class="pb-4 text-contrast-500 text-lg font-bold">
-                Raisons de l'alerte
+                Raison de l'alerte
               </h2>
               <p class="text-sm text-grey-300">
                 {{ alertStore.alert.summary }}
@@ -149,6 +149,8 @@ import {
   ChatBubbleLeftRightIcon,
   CheckCircleIcon,
   PhoneIcon,
+  ClockIcon,
+  CalendarDaysIcon,
 } from '@heroicons/vue/24/outline';
 import AlertActionCard from '@/components/Alert/AlertActionCard.vue';
 import AlertActionButton from '@/components/Alert/AlertActionButton.vue';
