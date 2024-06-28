@@ -1,12 +1,35 @@
 <template>
   <div class="mx-auto px-4 sm:px-8">
-    <div class="pulsating-circle-container">
-      <div class="pulsating-circle">
-        <div class="circle-text">
-          <div class="text-4xl font-bold">
-            {{ alertStore.unasignedAlertsCount }}
+    <div class="flex items-center">
+      <div class="w-5/12">&nbsp;</div>
+      <div class="pulsating-circle-container">
+        <div class="pulsating-circle">
+          <div class="circle-text">
+            <div class="text-4xl font-bold">
+              {{ alertStore.unasignedAlertsCount }}
+            </div>
+            <div class="font-bold">alertes</div>
           </div>
-          <div class="font-bold">alertes</div>
+        </div>
+      </div>
+      <div class="w-5/12">
+        <div class="w-[40%] text-sm text-grey-300 font-light">
+          <div class="flex pb-0.5">
+            <div class="w-1/2">Critiques</div>
+            <div class="w-1/2">2</div>
+          </div>
+          <div class="flex pb-0.5">
+            <div class="w-1/2">Moyennes</div>
+            <div class="w-1/2">5</div>
+          </div>
+          <div class="flex pb-0.5">
+            <div class="w-1/2">Faibles</div>
+            <div class="w-1/2">10</div>
+          </div>
+          <div class="flex pb-0.5 font-medium">
+            <div class="w-1/2">Toutes</div>
+            <div class="w-1/2">17</div>
+          </div>
         </div>
       </div>
     </div>
@@ -82,7 +105,7 @@ alertStore.getUnasignedAlerts();
 <style scoped>
 .pulsating-circle-container {
   position: relative;
-  width: 100%;
+  width: 25%;
   height: 200px;
 }
 
