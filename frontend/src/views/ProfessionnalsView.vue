@@ -1,5 +1,10 @@
 <template>
   <div class="mx-auto mt-8 px-4 sm:px-8">
+    <h1
+      class="text-2xl font-bold mb-8 text-contrast-500 border-b border-secondary-400"
+    >
+      Liste des professionnels de santé
+    </h1>
     <SharedDatatable
       id="table"
       v-if="!userStore.areUsersLoading"
