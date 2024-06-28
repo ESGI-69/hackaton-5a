@@ -6,6 +6,9 @@ export const useAlertStore = defineStore('alertStore', {
   state: () => ({
     unasignedAlerts: [] as Alert[],
     unasignedAlertsCount: 0,
+    unasignedCriticalCount: 0,
+    unasignedMediumCount: 0,
+    unasignedLowCount: 0,
     areUnasignedAlertsLoading: false,
 
     assignedAlerts: [] as Alert[],
@@ -28,6 +31,9 @@ export const useAlertStore = defineStore('alertStore', {
       try {
         const { data } = await api.get('/alerts/unasigned');
         this.unasignedAlertsCount = data.count;
+        this.unasignedCriticalCount = data.criticalCount;
+        this.unasignedMediumCount = data.mediumCount;
+        this.unasignedLowCount = data.lowCount;
         this.unasignedAlerts = data.results;
       } finally {
         this.areUnasignedAlertsLoading = false;

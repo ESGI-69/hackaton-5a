@@ -16,19 +16,19 @@
         <div class="w-[40%] text-sm text-grey-300 font-light">
           <div class="flex pb-0.5">
             <div class="w-1/2">Critiques</div>
-            <div class="w-1/2">2</div>
+            <div class="w-1/2">{{ alertStore.unasignedCriticalCount }}</div>
           </div>
           <div class="flex pb-0.5">
             <div class="w-1/2">Moyennes</div>
-            <div class="w-1/2">5</div>
+            <div class="w-1/2">{{ alertStore.unasignedMediumCount }}</div>
           </div>
           <div class="flex pb-0.5">
             <div class="w-1/2">Faibles</div>
-            <div class="w-1/2">10</div>
+            <div class="w-1/2">{{ alertStore.unasignedLowCount }}</div>
           </div>
           <div class="flex pb-0.5 font-medium">
             <div class="w-1/2">Toutes</div>
-            <div class="w-1/2">17</div>
+            <div class="w-1/2">{{ alertStore.unasignedAlertsCount }}</div>
           </div>
         </div>
       </div>
