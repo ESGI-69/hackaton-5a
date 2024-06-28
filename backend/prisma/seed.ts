@@ -139,7 +139,7 @@ const main = async () => {
   await prisma.alert.create({
     data: {
       score: 126,
-      summary: 'Brigitte Dupont mange peu et na pas dappetit',
+      summary: "Brigitte Dupont mange peu et n'a pas d'appétit",
       reasons: ['peu dappetit', 'mange pas beaucoup'],
       patientId: brigitteCaVaPasFortPatient.id,
       conversationId: brigitteCaVaPasFortConversation.id,
@@ -151,7 +151,7 @@ const main = async () => {
               type: 'MESSAGE',
               userId: adminUser.id,
               comment:
-                'envoi du message au patient : Pouvez vous me donner plus de détails',
+                'Envoi du message au patient : Pouvez vous me donner plus de détails',
             },
           ],
         },
