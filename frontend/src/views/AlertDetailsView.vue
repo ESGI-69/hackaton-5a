@@ -173,27 +173,28 @@
 
   <AlertModal
     :isOpen="isCloseModalOpen"
-    title="Fermer l'alerte"
+    title="Fermeture de l'alerte"
     @close="isCloseModalOpen = false"
     @confirm="closeAlert"
     btn-text="Fermer l'alerte"
   >
-    <p>Voulez-vous ajouter un message résumant la résolution de l'alerte ?</p>
     <textarea
+      class="w-full border border-secondary-300 hover:border-secondary-500 transition duration-300 ease-in-out rounded-md mt-4 p-2 font-light text-grey-300 focus:outline-none"
       rows="5"
-      placeholder="Commentaire"
+      placeholder="Avant de clôturer l'alerte, saisissez un commentaire pour résumer la solution apportée."
       v-model="closeComment"
     />
   </AlertModal>
 
   <AlertModal
     :isOpen="isMessageModalOpen"
-    title="Envoyer un SMS"
+    title="Contactez le patient par SMS"
     @close="isMessageModalOpen = false"
     @confirm="sendMessage"
-    btn-text="Envoyer le message"
+    btn-text="Envoyer"
   >
     <textarea
+      class="w-full border border-secondary-300 hover:border-secondary-500 transition duration-300 ease-in-out rounded-md mt-4 p-2 font-light text-grey-300 focus:outline-none"
       rows="5"
       placeholder="Saisissez le contenu de votre message."
       v-model="messageComment"
@@ -202,14 +203,15 @@
 
   <AlertModal
     :isOpen="isCallModalOpen"
-    title="Passer un appel"
+    title="Appeler le patient"
     @close="isCallModalOpen = false"
     @confirm="callPatient"
-    btn-text="Envoyer l'appel"
+    btn-text="Passer l'appel"
   >
     <textarea
+      class="w-full border border-secondary-300 hover:border-secondary-500 transition duration-300 ease-in-out rounded-md mt-4 p-2 font-light text-grey-300 focus:outline-none"
       rows="5"
-      placeholder="Saisissez le contenu énoncé à votre patient."
+      placeholder="Saisissez la raison de cet appel."
       v-model="callComment"
     />
   </AlertModal>
