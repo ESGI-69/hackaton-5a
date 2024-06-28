@@ -31,9 +31,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Bars3Icon } from '@heroicons/vue/24/solid';
 import NavbarItem from './NavbarItem.vue';
+import { useAuthStore } from '@/stores/authStore';
+
+const authStore = useAuthStore();
 
 const isMenuOpen = ref(false);
 
@@ -41,11 +44,19 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-const menuItems = [
+const menuItems = computed(() => {
+  return authStore.isLogged ? loggedMenuItems : notLoggedMenuItems;
+});
+
+const notLoggedMenuItems = [
+  { name: 'Connexion', routeName: 'login' },
+  { name: 'Inscription', routeName: 'register' },
+];
+
+const loggedMenuItems = [
   { name: 'TEST MESSAGE SEND', routeName: 'test-message' },
   { name: 'Dashboard', routeName: 'dashboard' },
   { name: 'Alertes', routeName: 'alerts' },
-  // { name: 'Rendez-vous', routeName: 'appointments' },
   { name: 'Professionnels', routeName: 'professionnals' },
   { name: 'Patients', routeName: 'patients' },
 ];

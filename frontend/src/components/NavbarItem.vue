@@ -5,6 +5,9 @@
       :key="item.name"
       :to="{ name: item.routeName }"
       class="text-primary-500 hover:text-contrast-500 transition duration-300 ease-in-out"
+      :class="{
+        underline: $route.name === item.routeName,
+      }"
     >
       {{ item.name }}
     </RouterLink>
