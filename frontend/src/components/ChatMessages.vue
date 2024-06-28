@@ -19,7 +19,7 @@
           v-if="message.origin === 'DOCTOR' || message.origin === 'SYSTEM'"
           class="font-semibold mr-2"
         >
-          {{ message.origin }}:
+          {{ message.origin == 'DOCTOR' ? 'DOCTEUR' : 'SYSTÈME' }} :
         </span>
         {{ message.text }}
       </div>
@@ -48,7 +48,7 @@ const messageClasses = (message: Message) => {
         baseClasses += 'bg-purple-500 text-white';
         break;
       case 'DOCTOR':
-        baseClasses += 'bg-blue-500 text-white';
+        baseClasses += 'bg-primary-500 text-white';
         break;
       default:
         baseClasses += 'bg-gray-300 text-gray-800';

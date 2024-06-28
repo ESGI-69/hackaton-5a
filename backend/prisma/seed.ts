@@ -94,7 +94,7 @@ const main = async () => {
         createMany: {
           data: [
             {
-              text: "Comment s'est passé vorte séjour à lhopital notez de 1 à 4",
+              text: "Comment s'est passé votre séjour à lhopital notez de 1 à 4",
               origin: 'SYSTEM',
             },
             { text: 'Bonjour.', origin: 'PATIENT' },
