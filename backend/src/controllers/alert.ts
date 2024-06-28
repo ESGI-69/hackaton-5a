@@ -13,9 +13,10 @@ export default {
       });
       res.status(200).json({
         count: alerts.length,
-        criticalCount: alerts.filter((a) => a.score >= 5).length,
-        mediumCount: alerts.filter((a) => a.score >= 3 && a.score < 5).length,
-        lowCount: alerts.filter((a) => a.score < 3).length,
+        criticalCount: alerts.filter((a) => a.score >= 500).length,
+        mediumCount: alerts.filter((a) => a.score >= 300 && a.score < 500)
+          .length,
+        lowCount: alerts.filter((a) => a.score < 300).length,
         results: alerts,
       });
     } catch (error) {
@@ -31,9 +32,10 @@ export default {
       });
       res.status(200).json({
         count: alerts.length,
-        criticalCount: alerts.filter((a) => a.score >= 5).length,
-        mediumCount: alerts.filter((a) => a.score >= 3 && a.score < 5).length,
-        lowCount: alerts.filter((a) => a.score < 3).length,
+        criticalCount: alerts.filter((a) => a.score >= 500).length,
+        mediumCount: alerts.filter((a) => a.score >= 300 && a.score < 500)
+          .length,
+        lowCount: alerts.filter((a) => a.score < 300).length,
         results: alerts,
       });
     } catch (error) {
