@@ -8,11 +8,18 @@ Quentin PELTIER (Timdev0)
 
 ## Fonctionnalités
 
-- Chat pour simuler l'envoi de SMS Back/Front (Quentin PELTIER)
+- Mise en place de départ de l'application, back-end et front-end avec authentification (Gatien ANIZAN)
+- Endpoint pour simuer un appel vers un patient qui n'aurait pas répondu (Gatien ANIZAN)
+- Endpoint pour fermer un alerte (Gatien ANIZAN)
+- Authentification et gestion des utilisateurs (Gatien ANIZAN)
+- Shémas de données et relations (Gatien ANIZAN, Quentin PELTIER)
+- Création du Datatable type safe en fonction du type de la donée qu'on lui passe (Gatien ANIZAN)
+- Branchement de l'api à la page d'une alerte (Gatien ANIZAN, Izïa CRINIER)
+- Chat pour simuler l'envoi de SMS Back/Front (Quentin PELTIER, Gatien ANIZAN)
 - Alert et actions endpoints (Quentin PELTIER)
 - Setup de mistral dans le back-end (Quentin PELTIER)
 - Analyse de la conversation et génération d'alerte grace à l'IA (Quentin PELTIER, Gatien ANIZAN)
-- Setup des SEEDS pour la base de données (Gatien ANIZAN)
+- Mise en place des SEEDS pour la base de données (Gatien ANIZAN)
 - Endpoint assigner un doctor à une alerte et permetre au doctor d'envoyer un message au patient (Quentin PELTIER)
 
 ## Procédure d'installation
