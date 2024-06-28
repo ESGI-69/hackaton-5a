@@ -15,7 +15,13 @@
         </div>
         <div class="flex items-center">
           <ClockIcon class="w-4 h-4 mr-2 text-secondary-500" />
-          <p class="text-grey-500 text-sm">{{ date.toLocaleTimeString() }}</p>
+          <p class="text-grey-500 text-sm">
+            {{
+              date
+                .toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                .replace(':', 'h')
+            }}
+          </p>
         </div>
       </div>
       <p
