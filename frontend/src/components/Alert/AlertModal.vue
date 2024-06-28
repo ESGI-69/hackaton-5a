@@ -1,13 +1,13 @@
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center"
+    class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-start justify-center pt-40"
   >
     <div class="bg-white rounded-lg p-8 w-1/2">
       <div
         class="flex justify-between items-center pb-4 border-b border-gray-300"
       >
-        <h3 class="text-lg font-bold text-contrast-500">{{ title }}</h3>
+        <h3 class="text-xl font-bold text-contrast-500">{{ title }}</h3>
         <button @click="closeModal">
           <svg
             class="w-6 h-6 text-gray-500 hover:text-gray-700"
@@ -27,7 +27,14 @@
       </div>
       <div class="mt-4">
         <slot></slot>
-        <button @click="$emit('confirm')">{{ btnText }}</button>
+        <div class="flex justify-end">
+          <button
+            @click="$emit('confirm')"
+            class="mt-4 bg-primary-500 text-white py-2 px-4 rounded"
+          >
+            {{ btnText }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
