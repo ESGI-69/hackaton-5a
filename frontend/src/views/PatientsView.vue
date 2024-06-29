@@ -46,7 +46,7 @@
         {{ conversations.length }}
       </template>
       <template #alerts="{ row: { alerts } }">
-        {{ alerts.length > 0 ? 'Oui' : 'Non' }}
+        {{ hasConvertionsOpen(alerts) ? 'Oui' : 'Non' }}
       </template>
     </SharedDatatable>
   </div>
@@ -57,4 +57,9 @@ import { usePatientStore } from '@/stores/patientStore';
 
 const patientStore = usePatientStore();
 patientStore.getAll();
+
+const hasConvertionsOpen = (conversations: any[]) => {
+  // Check if there is any open conversation (handleAt is null)
+  return conversations.some((conversation) => !conversation.handledAt);
+};
 </script>
