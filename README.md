@@ -1,27 +1,64 @@
-# Hackaton 5A
+# Mediflow - Hackathon 2024
 
-## Init for dev
+## Développeurs
 
-> Don't forget to `mv .env.example .env` in the backend & frontend folder
+Izïa CRINIER (19946-Dresden-St)
+Gatien ANIZAN (mrpinkcat)
+Quentin PELTIER (Timdev0)
 
-## Launch app 
+## Fonctionnalités
 
-2. Launch the postgres db **in the root folder**
-    ```sh
-      docker compose up postgres
-    ```
+- Mise en place de départ de l'application, back-end et front-end avec authentification (Gatien ANIZAN)
+- Endpoint pour simuler un appel vers un patient qui n'aurait pas répondu (Gatien ANIZAN)
+- Endpoint pour fermer une alerte (Gatien ANIZAN)
+- Authentification et gestion des utilisateurs (Gatien ANIZAN)
+- Schémas de données et relations (Gatien ANIZAN, Quentin PELTIER)
+- Création du Datatable type safe en fonction du type de la donée qu'on lui passe (Gatien ANIZAN)
+- Branchement de l'api à la page d'une alerte (Gatien ANIZAN, Izïa CRINIER)
+- Chat pour simuler l'envoi de SMS Back/Front (Quentin PELTIER, Gatien ANIZAN)
+- Alert et actions endpoints (Quentin PELTIER)
+- Setup de mistral dans le back-end (Quentin PELTIER)
+- Analyse de la conversation et génération d'alerte grace à l'IA (Quentin PELTIER, Gatien ANIZAN)
+- Mise en place des SEEDS pour la base de données (Gatien ANIZAN)
+- Endpoint assigner un doctor à une alerte et permetre au doctor d'envoyer un message au patient (Quentin PELTIER)
+- Création des maquettes de l'application (Izïa CRINIER)
+- Intégration des maquettes (Izïa CRINIER)
 
-3. Migrade the database with pisma **in the backend folder**
-    ```
-      npx prisma migrate deploy
-    ```
+## Procédure d'installation
 
-2. Launch the rest of the app **in the root folder**
-    ```sh
-      docker compose up --build
-    ```
+### Ollama
 
-5. optional: if you have typing erros during dev you can regenerate the prisma client **in the backend folder**
-    ```sh
-    npx prisma generate
-    ```
+Installer ollama et lancer la commande suivante :
+
+```sh
+  ollama pull mistral
+```
+
+Assurez que l'API d'ollama écoute sur le port 11434
+
+### DB Postgres
+
+Dans le dossier racine lancez la commande suivante :
+
+```sh
+  docker compose up postgres
+```
+
+### Back-end
+
+Dans le dossier back-end créé le .env grace au .env.example et executez les commandes suivantes :
+
+```sh
+  npm install
+  npx prisma migrate dev && npx prisma db seed
+  DATABASE_URL=postgresql://root:password@localhost:5432/app JWT_SECRET=secret OLLAMA_API=http://127.0.0.1:11434 npm run dev
+```
+
+### Front-end
+
+Dans le dossier front-end et executez les commandes suivantes :
+
+```sh
+  npm install
+  npm run dev
+```
