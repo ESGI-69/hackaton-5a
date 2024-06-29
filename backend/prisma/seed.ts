@@ -99,10 +99,9 @@ const main = async () => {
             },
             { text: 'Bonjour.', origin: 'PATIENT' },
             {
-              text: "Bien, mais je n'ai pas beaucoup d'appétit, je mange peu.",
+              text: 'Bien, mais je ne me sent pas très bien récemment.',
               origin: 'PATIENT',
             },
-            // TODO
             {
               text: 'Pouvez-vous me donner plus de détails ?',
               origin: 'DOCTOR',
@@ -118,7 +117,7 @@ const main = async () => {
     data: {
       password: await bcrypt.hash('admin', bcrypt.genSaltSync(10)),
       username: 'admin',
-      name: 'Admin User',
+      name: 'Dr. Amin ADMIN',
     },
   });
 
@@ -138,25 +137,21 @@ const main = async () => {
     },
   });
 
-  //brigitteCaVaPasFort light alert created
   await prisma.alert.create({
     data: {
-      score: 126,
-      summary: "Brigitte DUPONT mange peu et n'a pas d'appétit.",
-      reasons: ["peu d'appetit", 'mange pas beaucoup'],
-      patientId: brigitteCaVaPasFortPatient.id,
       conversationId: brigitteCaVaPasFortConversation.id,
+      patientId: brigitteCaVaPasFortPatient.id,
       responsibleId: adminUser.id,
+      score: 100,
+      summary: 'Le patient ne se sent pas bien',
       actions: {
-        createMany: {
-          data: [
-            {
-              type: 'MESSAGE',
-              userId: adminUser.id,
-              comment:
-                'Envoi du message au patient : Pouvez-vous me donner plus de détails ?',
-            },
-          ],
+        create: {
+          type: 'MESSAGE',
+          comment:
+            'Dr. Amin ADMIN a envoyé le message suivant: Pouvez-vous me donner plus de détails ?',
+          user: {
+            connect: { username: 'admin' },
+          },
         },
       },
     },
